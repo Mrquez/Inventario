@@ -7,7 +7,7 @@ Descripción: Este documento muestra el formato del inició de sesión para los 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>HabitApp | Inicio de sesión</title>
+  <title>Lab | Inicio de sesión</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -21,10 +21,10 @@ Descripción: Este documento muestra el formato del inició de sesión para los 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
-<body class="hold-transition login-page" background="../../AdminLTE-master/dist/img/fondoIndex.png">
+<body class="hold-transition login-page"  background="../css/Fondo.jpg">
 <div class="login-box">
   <div class="login-logo">
-    <i class='fas fa-spa' style="font-size:60px;color: #4C1D95;"></i>
+    <img src="../css/ESCUDO_MODIFICADO2.png" alt="H & GT Logo" width="50%" height="50%"  style="opacity: .8">
   </div>
   <!-- /.login-logo -->
   <div class="card">
@@ -32,7 +32,7 @@ Descripción: Este documento muestra el formato del inició de sesión para los 
     <div class="card-body login-card-body">
       <form method="post" name="inicio" action="../php/validar_ingreso.php" onsubmit="return validateForm()">
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Correo" name="correo">
+          <input type="email" class="form-control" placeholder="No de Empleado" name="correo">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -54,12 +54,12 @@ Descripción: Este documento muestra el formato del inició de sesión para los 
             <a href="forgot-password.html">¿Olvidaste tu contraseña?</a>
           </p>-->
           <br>
-          <div class="col-12">
-            <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
+          <div style="color:#6a113d" class="col-12">
+            <button style="color:#FFFFFF" type="submit" class="btn btn-primary btn-block">Ingresar</button>
           </div>
           <br>
           <p class="mb-0">
-            <a href="register.html">¿Eres nuevo?<b> Registrate</b></a>
+            <a style="color:#6a113d" href="register.html">¿Eres nuevo?<b> Registrate</b></a>
           </p>
           <div id="error-message" name="error-message" style="display:none;color:red;">
             Nombre de usuario o contraseña incorrectos. Por favor, inténtalo de nuevo.
