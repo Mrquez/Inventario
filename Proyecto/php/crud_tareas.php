@@ -401,14 +401,14 @@
         $id = $_POST['id'];
 
         // Primero elimina la relación entre el usuario y la tarea a eliminar
-        $queryEliminarRelacion = "DELETE FROM compartir WHERE tareas_idtareas=".$id;
-        mysqli_query($conex,$queryEliminarRelacion);
+        // $queryEliminarRelacion = "DELETE FROM compartir WHERE tareas_idtareas=".$id;
+        // mysqli_query($conex,$queryEliminarRelacion);
 
         // Si se eliminó correctamente entra en el if
         // Sino envía el mensaje de error
         if(mysqli_affected_rows($conex)>0){
             // Elimina de la BD la tarea
-            $queryEliminar = "DELETE FROM tareas WHERE idtareas=".$id;
+            $queryEliminar = "DELETE FROM articulo WHERE idarticulo=".$id;
             mysqli_query($conex,$queryEliminar);
 
             if(mysqli_affected_rows($conex)>0){
