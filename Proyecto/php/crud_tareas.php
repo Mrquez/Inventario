@@ -52,6 +52,7 @@
     los debe recibir desde crud_tareas.js y envía una Respuesta con lo que necesita el Javascript, y mensajes en caso de error.
     */
     function actionCreatePHP($conex){
+        /*
         if (isset($_POST['correo'])) {
             $correo = $_POST['correo'];
             
@@ -65,67 +66,87 @@
                 $idcorreo = $fila['idUsuario'];
             }
         }   
-
+*/
         // Recupera los datos que el usuario ingresó
-        $nom_tarea = $_POST['nom_tarea'];
-        $fecha = $_POST['fecha'];  
-        $lugar = $_POST['lugar'];
-        $duracion = $_POST['duracion'];
-        $descripcion = $_POST['descripcion'];
-        $estadoAct = $_POST['estadoAct'];
+        $nombre = $_POST['nombre'];
+        //$fecha = $_POST['fecha'];  
+        $cantidad = $_POST['cantidad'];
+        $fecha_creacion= $_POST['fecha_creacion'];
+        $fecha_modificacion= $_POST['fecha_modificacion'];
+       // $duracion = $_POST['duracion'];
+        //$descripcion = $_POST['descripcion'];
+        //$estadoAct = $_POST['estadoAct'];
 
         // Crea el nuevo registro de tarea en la BD
-        $queryCreate = "INSERT INTO `tareas`(`idtareas`, `nom_tarea`, `fecha`, `lugar`, `duracion`, `descripcion`) 
-                        VALUES (NULL, '$nom_tarea','$fecha','$lugar','$duracion','$descripcion')";
+        $queryCreate = "INSERT INTO `articulo`(`nombre`,`fecha_creacion`,`fecha_modificacion`,`cantidad`) 
+                        VALUES ('$nombre','$fecha_creacion','$fecha_modificacion','$cantidad')";
+                        if(mysqli_query($conex,$queryCreate)){
+                            $Respuesta['id'] = mysqli_insert_id($conex);   
+                
+                                    $Respuesta['estado'] = 1;
+                                    $Respuesta['mensaje'] = "El registro se guardo correctamente";
+                
+                                    echo json_encode($Respuesta);
+                                    mysqli_close($conex);   
+                                
+                
+                            }else{
+                                $Respuesta['estado'] = 0;
+                                $Respuesta['mensaje'] = "Ocurrio un error desconocido 2";
+                                $Respuesta['id'] = -1;
+                
+                                echo json_encode($Respuesta);
+                                mysqli_close($conex);   
+                            }
         
         // Si logra crear el registro entra a crear la relación entre el usuario y la tarea, e identifica al usuario como propietario
         // Si alguna de las operaciones falla, entra a los else y manda mensajes de error
-        if(mysqli_query($conex,$queryCreate)){
-            $Respuesta['id'] = mysqli_insert_id($conex);   
-            $queryLeerId = "SELECT idtareas FROM tareas WHERE (nom_tarea = '$nom_tarea' AND fecha = '$fecha' 
-                            AND lugar = '$lugar' AND duracion = '$duracion' AND descripcion = '$descripcion')";
+        // if(mysqli_query($conex,$queryCreate)){
+        //     $Respuesta = mysqli_insert_id($conex);   
+        //    $queryLeerId = "SELECT idtareas FROM tareas WHERE (nom_tarea = '$nom_tarea' AND fecha = '$fecha' 
+        //                    AND lugar = '$lugar' AND duracion = '$duracion' AND descripcion = '$descripcion')";
 
-            $resultadoLeerId = mysqli_query($conex, $queryLeerId);
+        //    $resultadoLeerId = mysqli_query($conex, $queryLeerId);
 
-            if($resultadoLeerId && mysqli_num_rows($resultadoLeerId) > 0 ){
-                $fila = mysqli_fetch_assoc($resultadoLeerId);
-                $idtareaRecup = $fila['idtareas'];
+        //     if($resultadoLeerId && mysqli_num_rows($resultadoLeerId) > 0 ){
+        //         $fila = mysqli_fetch_assoc($resultadoLeerId);
+        //         $idtareaRecup = $fila['idtareas'];
 
-                $queryPropietario = "INSERT INTO `compartir`(`tareas_idtareas`, `usuario_idUsuario`, `propietario`, `estado`, `aceptar`) 
-                            VALUES ('$idtareaRecup','$idcorreo',1, '$estadoAct',1)";
+        //         $queryPropietario = "INSERT INTO `compartir`(`tareas_idtareas`, `usuario_idUsuario`, `propietario`, `estado`, `aceptar`) 
+        //                     VALUES ('$idtareaRecup','$idcorreo',1, '$estadoAct',1)";
 
-                if(mysqli_query($conex,$queryPropietario)){
-                    $Respuesta['estado'] = 1;
-                    $Respuesta['mensaje'] = "El registro se guardo correctamente";
+        //         if(mysqli_query($conex,$queryPropietario)){
+        //             $Respuesta['estado'] = 1;
+        //             $Respuesta['mensaje'] = "El registro se guardo correctamente";
 
-                    echo json_encode($Respuesta);
-                    mysqli_close($conex);   
-                }else{
-                    $Respuesta['estado'] = 0;
-                    $Respuesta['mensaje'] = "Ocurrio un error desconocido 1";
-                    $Respuesta['id'] = -1;
+        //             echo json_encode($Respuesta);
+        //             mysqli_close($conex);   
+        //         }else{
+        //             $Respuesta['estado'] = 0;
+        //             $Respuesta['mensaje'] = "Ocurrio un error desconocido 1";
+        //             $Respuesta['id'] = -1;
         
-                    echo json_encode($Respuesta);
-                    mysqli_close($conex);   
-                }
+        //             echo json_encode($Respuesta);
+        //             mysqli_close($conex);   
+        //         }
 
-            }else{
-                $Respuesta['estado'] = 0;
-                $Respuesta['mensaje'] = "Ocurrio un error desconocido 2";
-                $Respuesta['id'] = -1;
+        //     }else{
+        //         $Respuesta['estado'] = 0;
+        //         $Respuesta['mensaje'] = "Ocurrio un error desconocido 2";
+        //         $Respuesta['id'] = -1;
 
-                echo json_encode($Respuesta);
-                mysqli_close($conex);   
-            }
-        }else{
-            $Respuesta['estado'] = 0;
-            $Respuesta['mensaje'] = "Ocurrio un error desconocido 3";
-            $Respuesta['id'] = -1;
+        //         echo json_encode($Respuesta);
+        //         mysqli_close($conex);   
+        //     }
+        // }else{
+        //     $Respuesta['estado'] = 0;
+        //     $Respuesta['mensaje'] = "Ocurrio un error desconocido 3";
+        //     $Respuesta['id'] = -1;
 
-            // Envía la respuesta para poder utilizarla en el javascript
-            echo json_encode($Respuesta);
-            mysqli_close($conex);   
-        }
+        //     // Envía la respuesta para poder utilizarla en el javascript
+        //     echo json_encode($Respuesta);
+        //     mysqli_close($conex);   
+        // }
     }
 
     /* 

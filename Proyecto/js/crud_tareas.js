@@ -15,20 +15,20 @@ let idMarcar=0;
 // Funciona al oprimir el botón de Nueva Tarea
 async function actionCreate(){
   //Recuperamos los datos del formulario
-  let nom_tarea = document.getElementById('nombreTarea').value;
-  let descripcion = document.getElementById('descripcion').value;
-  let lugar = document.getElementById('lugar').value;
-  let fecha = document.getElementById('fecha').value;
-  let duracion = document.getElementById('duracion').value;
+  let nombre = document.getElementById('nombre').value;
+  let cantidad = document.getElementById('cantidad').value;
+
   let estadoAct;
 
-  let fechaActual = new Date();
-  let anio = fechaActual.getFullYear();
-  let mes = String(fechaActual.getMonth() + 1).padStart(2, '0');
-  let dia = String(fechaActual.getDate()).padStart(2, '0');
-  let fechaFormateada = anio + '-' + mes + '-' + dia;
+  let fecha = new Date();
+  let anio = fecha.getFullYear();
+  let mes = String(fecha.getMonth() + 1).padStart(2, '0');
+  let dia = String(fecha.getDate()).padStart(2, '0');
+  let fecha_creacion = anio + '-' + mes + '-' + dia;
+  let fecha_modificacion = fecha_creacion ;
 
   // Compara las fechas y actualiza el estado
+  /*
   if(fecha == fechaFormateada || fecha > fechaFormateada){
       estadoAct = 0;
   }else if (fecha < fechaFormateada) {
@@ -36,38 +36,36 @@ async function actionCreate(){
   }else{
     estadoAct = 0;
   }
+  */
   console.log(estadoAct);
 
-  const email = await obtenerCorreo();
+  //const email = await obtenerCorreo();
 
   // Validaciones not null, para asegurar que llene todos los campos
-  if(nom_tarea === "" || descripcion === "" || lugar === "" || fecha === "" || duracion === ""){
+  if(nombre === "" || cantidad === "" || fecha_creacion === ""){
       console.log('No puso todos los campos');
       toastr.error("Favor de rellenar todos los campos. Intente de nuevo.");
   }else{
       var formData = new FormData();
-      formData.append('nom_tarea', nom_tarea);
-      formData.append('fecha', fecha);
-      formData.append('lugar', lugar);
-      formData.append('duracion', duracion);
-      formData.append('descripcion', descripcion);
-      formData.append('estadoAct', estadoAct);
-      formData.append('accion', "create");
-      formData.append('correo', email);
+      formData.append('nombre', nombre);
+      formData.append('fecha_creacion', fecha_creacion);
+      formData.append('fecha_modificacion', fecha_modificacion);
+      formData.append('cantidad', cantidad);
+      formData.append('accion',"create");
+      
 
-      console.log(nom_tarea);
-      console.log(descripcion);
-      console.log(lugar);
-      console.log(fecha);
-      console.log(duracion);
-      console.log(estadoAct);
-      console.log(email);
+      console.log(nombre);
+      console.log(cantidad);
+      console.log(fecha_creacion);
+      console.log(fecha_modificacion);
+
       limpiarpagina();
 
       $.ajax({ 
         method:"POST",
         url: "../php/crud_tareas.php",
         data: formData,
+
         contentType: false,
         processData: false,
         success: function(respuesta) {
@@ -76,18 +74,18 @@ async function actionCreate(){
           if(JSONRespuesta.estado==1){
             //alert(JSONRespuesta.mensaje);
             tabla = $("#example2").DataTable();
-            if(estadoAct == 0){
-              estadoActT = "Pendiente";
-            }
-            if(estadoAct == 2){
-              estadoActT = "Retrasada";
-            }
+            // if(estadoAct == 0){
+            //   estadoActT = "Pendiente";
+            // }
+            // if(estadoAct == 2){
+            //   estadoActT = "Retrasada";
+            // }
             let Botones="";
               Botones = '<i class="fas fa-eye" style="font-size:25px;color: #af66eb; margin-right: 10px;" data-toggle="modal" data-target="#modal_read_tarea" onclick="actionReadById('+JSONRespuesta.id+')"></i>';
               Botones += '<i class="fas fa-edit" style="font-size:25px;color: #168645; margin-right: 10px;" data-toggle="modal" data-target="#modal_update_tarea" onclick="identificarActualizar('+JSONRespuesta.id+')"></i>';    
               Botones += '<i class="fas fa-trash" style="font-size:25px;color: #da2c2c; margin-right: 10px;" data-toggle="modal" data-target="#modal_delete_tarea" onclick="identificarEliminar('+JSONRespuesta.id+')"></i>';
               Botones += '<i class="fas fa-share" style="font-size:25px;color: #1855b1; margin-right: 10px;" data-toggle="modal" data-target="#modal_share_tarea" onclick="Compartirid('+JSONRespuesta.id+')"></i>';
-            tabla.row.add([nom_tarea, fecha, duracion, estadoActT, Botones]).draw().node().id="renglon_"+JSONRespuesta.id;
+            tabla.row.add([nombre,  cantidad, fecha_creacion, fecha_modificacion, Botones]).draw().node().id="renglon_"+JSONRespuesta.id;
             //toastr.success(JSONRespuesta.mensaje);
           }else{
             toastr.error(JSONRespuesta.mensaje);
@@ -362,11 +360,9 @@ async function marcarCompletada(estadoCompletada){
 //Limpia las variables del create
 function limpiarpagina()
 {
-    document.getElementById("nombreTarea").value = "";
-    document.getElementById("fecha").value = "";
-    document.getElementById("lugar").value = "";
-    document.getElementById("duracion").value = "";
-    document.getElementById("descripcion").value = "";
+    document.getElementById("nombre").value = "";
+    document.getElementById("cantidad").value = "";
+
 }
 
 //Leemos el correo de la sesion
