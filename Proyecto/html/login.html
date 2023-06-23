@@ -21,16 +21,18 @@ Descripción: Este documento muestra el formato del inició de sesión para los 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
-<body class="hold-transition login-page"  background="../css/Fondo.jpg">
-<div class="login-box">
-  <div class="login-logo">
-    <img src="../css/ESCUDO_MODIFICADO2.png" alt="H & GT Logo" width="50%" height="50%"  style="opacity: .8">
-  </div>
+<body class="hold-transition login-page" style="background:linear-gradient(0deg,#731649, rgb(255, 255, 255));">
+<div class="login-box"> 
+  
   <!-- /.login-logo -->
   <div class="card">
     <br>
     <div class="card-body login-card-body">
       <form method="post" name="inicio" action="../php/validar_ingreso.php" onsubmit="return validateForm()">
+        <div class="login-logo">
+          <img src="../css/Logo_cecyy.png" alt="H & GT Logo" width="50%" height="50%"  style="opacity: .8">
+        </div>
+        <br>
         <div class="input-group mb-3">
           <input type="email" class="form-control" placeholder="No de Empleado" name="correo">
           <div class="input-group-append">

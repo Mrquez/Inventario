@@ -18,17 +18,20 @@ Descripción: Este documento muestra el formato del registro de un nuevo usuario
   <link rel="stylesheet" href="../../AdminLTE-master/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../../AdminLTE-master/dist/css/adminlte.min.css">
+
 </head>
-<body class="hold-transition login-page"  background="../css/Fondo.jpg">
+<body class="hold-transition login-page" style="background:linear-gradient(0deg,#731649, rgb(255, 255, 255));">
 <div class="register-box">
-  <div class="register-logo">
-    <img src="../css/ESCUDO_MODIFICADO2.png" alt="H & GT Logo" width="50%" height="50%"  style="opacity: .8">
-  </div>
+  
 
   <div class="card">
     <div class="card-body register-card-body">
       <br>
       <form method="post" name="registrar" action="../php/registrar_usuario.php" onsubmit="return validateForm()">
+        <div class="register-logo">
+          <img src="../css/Logo_cecyy.png" alt="H & GT Logo" width="50%" height="50%"  style="opacity: .8">
+        </div>
+        <br>
         <div class="input-group mb-3">
           <input type="text" class="form-control" placeholder="Nombre" name="usuario">
           <div class="input-group-append">
