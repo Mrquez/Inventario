@@ -155,75 +155,20 @@
     el usuario y comprueba el estado de la tarea, para ponerla como Pendiente, Completada o Retrasada.
     */
     function actionReadPHP($conex) {
-        if (isset($_POST['correo'])) {
-            $correo = $_POST['correo'];
-            
-            // Realizar una consulta para obtener el ID del usuario según el correo
-            $queryCorreo = "SELECT idUsuario FROM usuario WHERE correo = '$correo'";
-            $resultadoCorreo = mysqli_query($conex, $queryCorreo);
-            
-            // Verificar si se obtuvo algún resultado
-            if ($resultadoCorreo && mysqli_num_rows($resultadoCorreo) > 0) {
-                $fila = mysqli_fetch_assoc($resultadoCorreo);
-                $idcorreo = $fila['idUsuario'];
-            }
-        }        
+        $QueryRead =    "SELECT * FROM articulo";
+        $ResultadoRead = mysqli_query($conex, $QueryRead);
+        $numeroRegistros = mysqli_num_rows($ResultadoRead);
 
-        $fechaHoy = $_POST['fechaHoy'];
-
-        // Recopila todos los registros de tareas que están relacionados con la sesión del usuario
-        $queryRead =    "SELECT * FROM tareas JOIN compartir ON compartir.tareas_idtareas = tareas.idtareas
-                        WHERE compartir.usuario_idUsuario = '$idcorreo'";
-        $resultadoRead = mysqli_query($conex, $queryRead);
-        $numeroRegistros = mysqli_num_rows($resultadoRead);
-
-        // Si hay registros los envía al Javascript y comprueba el estado de la tarea (Pendiente, Completada, Retrasada)
-        // Si no hay registros envía un mensaje diciendo que no hay registros para mostrar
-        // Si ocurre un error dentro del if, envía mensajes de error
         if ($numeroRegistros > 0) {
             $Respuesta['entregas'] = array();
             
-            while ($renglonEntrega = mysqli_fetch_assoc($resultadoRead)) {
+            while ($RenglonEntrega = mysqli_fetch_assoc($ResultadoRead)) {
                 $Entrega = array();
-                $Entrega['idtareas'] = $renglonEntrega['idtareas'];
-                $Entrega['nom_tarea'] = $renglonEntrega['nom_tarea'];
-                $Entrega['descripcion'] = $renglonEntrega['descripcion'];
-                $Entrega['duracion'] = $renglonEntrega['duracion'];
-                $Entrega['fecha'] = $renglonEntrega['fecha'];
-                $Entrega['aceptar'] = $renglonEntrega['aceptar'];
-                $Entrega['propietario'] = $renglonEntrega['propietario'];
-                
-                if($renglonEntrega['fecha'] < $fechaHoy && $renglonEntrega['estado'] != 1){     // Retrasada
-                    $queryUpdateEstado =    "UPDATE compartir SET estado=2 
-                                            WHERE tareas_idtareas ='".$Entrega['idtareas']."' 
-                                            AND usuario_idUsuario=".$idcorreo;
-
-                    if(mysqli_query($conex,$queryUpdateEstado)){
-                        $Entrega['estado'] = 2;
-                        $Respuesta['estado'] = 1;
-                        $Respuesta['mensaje'] = "Los registros se listan correctamente";
-                    }else{
-                        $Respuesta['estado'] = 0;
-                        $Respuesta['mensaje'] = "Ocurrio un error desconocido";
-                    }
-                }else if($renglonEntrega['estado'] == 1){                                       // Completada
-                    $Entrega['estado'] = 1;
-                    $Respuesta['estado'] = 1;
-                    $Respuesta['mensaje'] = "Los registros se listan correctamente";
-                }else{                                                                          // Pendiente
-                    $queryUpdateEstado =    "UPDATE compartir SET estado=0 
-                                            WHERE tareas_idtareas ='".$Entrega['idtareas']."' 
-                                            AND usuario_idUsuario=".$idcorreo;
-
-                    if(mysqli_query($conex,$queryUpdateEstado)){
-                        $Entrega['estado'] = 0;
-                        $Respuesta['estado'] = 1;
-                        $Respuesta['mensaje'] = "Los registros se listan correctamente";
-                    }else{
-                        $Respuesta['estado'] = 0;
-                        $Respuesta['mensaje'] = "Ocurrio un error desconocido";
-                    }
-                }
+                $Entrega['idarticulo'] = $RenglonEntrega['idarticulo'];
+                $Entrega['nombre'] = $RenglonEntrega['nombre'];
+                $Entrega['cantidad'] = $RenglonEntrega['cantidad'];
+                $Entrega['fecha_creacion'] = $RenglonEntrega['fecha_creacion'];
+                $Entrega['fecha_modificacion'] = $RenglonEntrega['fecha_modificacion'];
 
                 array_push($Respuesta['entregas'], $Entrega);
             }
@@ -232,9 +177,8 @@
             $Respuesta['mensaje'] = "Lo siento, pero no hay registros para mostrar";
         }
         
-        // Envía la respuesta para poder utilizarla en el javascript
         echo json_encode($Respuesta);
-        mysqli_close($conex); 
+        mysqli_close($conex);
     }
     
     /* 

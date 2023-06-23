@@ -100,12 +100,6 @@ async function actionCreate(){
 async function actionRead() {
   const email = await obtenerCorreo();
 
-  let fechaActual = new Date();
-
-  let anio = fechaActual.getFullYear();
-  let mes = String(fechaActual.getMonth() + 1).padStart(2, '0');
-  let dia = String(fechaActual.getDate()).padStart(2, '0');
-  let fechaFormateada = anio + '-' + mes + '-' + dia;
 
   $.ajax({
     method:"POST",
@@ -113,40 +107,27 @@ async function actionRead() {
     data: {
       accion: "read",
       correo: email,
-      fechaHoy: fechaFormateada
+
     },
     success: function( respuesta ) {
       JSONRespuesta = JSON.parse(respuesta);
-      if(JSONRespuesta.estado==1){
-        //alert(JSONRespuesta.mensaje);
+      console.log(JSONRespuesta.estado);
+
         tabla = $("#example2").DataTable();
-        JSONRespuesta.entregas.forEach(tareas => {
-          if (tareas.aceptar == 1) {
-            let estadoAct;
-            if (tareas.estado == 0) {
-              estadoAct = "Pendiente";
-            }
-            if (tareas.estado == 1) {
-              estadoAct = "Completada";
-            }
-            if (tareas.estado == 2) {
-              estadoAct = "Retrasada";
-            }
-            let Botones = "";
-            Botones += '<i class="fas fa-eye" style="font-size:25px;color: #af66eb; margin-right: 10px;" data-toggle="modal" data-target="#modal_read_tarea" onclick="actionReadById(' + tareas.idtareas + ')"></i>';
-            if (tareas.propietario == 1) {
-              Botones += '<i class="fas fa-edit" style="font-size:25px;color: #168645; margin-right: 10px;" data-toggle="modal" data-target="#modal_update_tarea" onclick="identificarActualizar(' + tareas.idtareas + ')"></i>';
-              Botones += '<i class="fas fa-trash" style="font-size:25px;color: #da2c2c; margin-right: 10px;" data-toggle="modal" data-target="#modal_delete_tarea" onclick="identificarEliminar(' + tareas.idtareas + ')"></i>';
-            }
-            Botones += '<i class="fas fa-share" style="font-size:25px;color: #1855b1; margin-right: 10px;" data-toggle="modal" data-target="#modal_share_tarea" onclick="Compartirid(' + tareas.idtareas + ')"></i>';
-            tabla.row.add([tareas.nom_tarea, tareas.fecha, tareas.duracion, estadoAct, Botones]).draw().node().id = "renglon_" + tareas.idtareas;
-          }
-        });
-      } 
+            JSONRespuesta.entregas.forEach(articulo => {
+
+              
+              let Botones="";
+                Botones = '<i class="fas fa-eye" style="font-size:25px;color: #af66eb; margin-right: 10px;" data-toggle="modal" data-target="#modal_read_tarea" onclick="actionReadById('+articulo.idarticulo+')"></i>';
+                Botones += '<i class="fas fa-edit" style="font-size:25px;color: #168645; margin-right: 10px;" data-toggle="modal" data-target="#modal_update_tarea" onclick="identificarActualizar('+articulo.idarticulo+')"></i>';    
+                Botones += '<i class="fas fa-trash" style="font-size:25px;color: #da2c2c; margin-right: 10px;" data-toggle="modal" data-target="#modal_delete_tarea" onclick="identificarEliminar('+articulo.idarticulo+')"></i>';
+                
+              tabla.row.add([articulo.nombre, articulo.cantidad, articulo.fecha_creacion,articulo.fecha_modificacion, Botones]).draw().node().id="renglon_"+articulo.idarticulo;
+            });
+      console.log(respuesta);
     }
   });
 }
-
 // -----------------  READ_BY_ID TAREAS  ------------------
 // Funciona al oprimir el botón de morado de leer para cada tarea, o cuando se selecciona desde el calendario
 function actionReadById(id){
