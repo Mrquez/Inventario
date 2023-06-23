@@ -344,30 +344,19 @@
     function actionDeletePHP($conex){
         $id = $_POST['id'];
 
-        // Primero elimina la relación entre el usuario y la tarea a eliminar
-        // $queryEliminarRelacion = "DELETE FROM compartir WHERE tareas_idtareas=".$id;
-        // mysqli_query($conex,$queryEliminarRelacion);
 
-        // Si se eliminó correctamente entra en el if
-        // Sino envía el mensaje de error
-        if(mysqli_affected_rows($conex)>0){
-            // Elimina de la BD la tarea
+
             $queryEliminar = "DELETE FROM articulo WHERE idarticulo=".$id;
             mysqli_query($conex,$queryEliminar);
 
             if(mysqli_affected_rows($conex)>0){
                 $Respuesta['estado']  = 1;
-                $Respuesta['mensaje'] = "La tarea se eliminó correctamente.";
+                $Respuesta['mensaje'] = "El artículo se eliminó correctamente.";
             }else{
                 $Respuesta['estado']  = 0;
-                $Respuesta['mensaje'] = "No se pudo eliminar la tarea.";
+                $Respuesta['mensaje'] = "No se pudo eliminar el artículo.";
             }
-        }else{
-            $Respuesta['estado']  = 0;
-            $Respuesta['mensaje'] = "No se pudo eliminar la tarea.";
-        }
 
-        // Envía la respuesta para poder utilizarla en el javascript
         echo json_encode($Respuesta);
         mysqli_close($conex);
     }
