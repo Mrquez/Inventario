@@ -187,111 +187,32 @@
     el usuario y comprueba el estado de la tarea, para ponerla como Pendiente, Completada o Retrasada.
     */
     function actionUpdatePHP($conex){
-        if (isset($_POST['correo'])) {
-            $correo = $_POST['correo'];
-            
-            // Realizar una consulta para obtener el ID del usuario según el correo
-            $queryCorreo = "SELECT idUsuario FROM usuario WHERE correo = '$correo'";
-            $resultadoCorreo = mysqli_query($conex, $queryCorreo);
-            
-            // Verificar si se obtuvo algún resultado de la consulta $queryCorreo, a traves de resultadoCorreo
-            if ($resultadoCorreo && mysqli_num_rows($resultadoCorreo) > 0) {
-                $fila = mysqli_fetch_assoc($resultadoCorreo);
-                $idcorreo = $fila['idUsuario'];
-            }
-        }   
-
-        // Recupera los datos que el usuario ingresó
         $id = $_POST['id'];
-        $nom_tarea = $_POST['nom_tarea'];
-        $fecha = $_POST['fecha'];
-        $lugar = $_POST['lugar'];
-        $duracion = $_POST['duracion'];
-        $descripcion = $_POST['descripcion'];
-        $fechaHoy = $_POST['fechaHoy'];
+        $nombre = $_POST['nombre'];
+        $cantidad = $_POST['cantidad'];
+        $fecha_creacion= $_POST['fecha_creacion'];
+        $fecha_modificacion= $_POST['fecha_modificacion'];
 
-        // Comprueba el estado de la tarea leyéndolo de la BD
-        $queryEstadoAct = "SELECT estado FROM compartir WHERE tareas_idtareas='".$id."' AND usuario_idUsuario=".$idcorreo;
-        $resultEstadoAct = mysqli_query($conex,$queryEstadoAct);
-        $numeroEstadoAct = mysqli_num_rows($resultEstadoAct);
-
-        //  Manda a actualizar la tarea de la BD
-        $queryUpdate   = "UPDATE tareas SET
-                         nom_tarea='".$nom_tarea."', 
-                         lugar='".$lugar."',
-                         fecha='".$fecha."',
-                         duracion='".$duracion."',
-                         descripcion='".$descripcion."'
-                         WHERE idtareas=".$id;
+        $queryUpdate = "UPDATE articulo SET
+                 nombre='".$nombre."', 
+                 cantidad='".$cantidad."', 
+                 fecha_creacion='".$fecha_creacion."', 
+                 fecha_modificacion='".$fecha_modificacion."'
+                 
+                 WHERE idarticulo=".$id;   
 
         if(mysqli_query($conex,$queryUpdate)){
-            if($numeroEstadoAct>0){
-                $renglonEntregaById = mysqli_fetch_assoc($resultEstadoAct);
-
-                // Si se actualizó el registro comprueba el estado de la tarea y también lo actualiza, si ocurre un error envía un mensaje
-                // Si no se modificó nada en la BD, envía un mensaje de que no se realizaron cambios
-                if(mysqli_affected_rows($conex)>0){   
-                    if($renglonEntregaById['estado'] == 1){
-                        $Respuesta['estadoAct'] = 1;        // estadoAct = 1 = "Completada"
-                        
-                        $queryUpdateEstado =    "UPDATE compartir SET estado=1 
-                                                WHERE tareas_idtareas ='".$id."' 
-                                                AND usuario_idUsuario=".$idcorreo;
-
-                        if(mysqli_query($conex,$queryUpdateEstado)){
-                            $Respuesta['estado'] = 1;
-                            $Respuesta['mensaje'] = "La tarea se actualizó correctamente";
-                        }else{
-                            $Respuesta['estado'] = 0;
-                            $Respuesta['mensaje'] = "Ocurrio un error desconocido";
-                        }
-                    }
-                    elseif($fecha < $fechaHoy){
-                        $Respuesta['estadoAct'] = 2;        // estadoAct = 2 = "Retrasada"
-
-                        $queryUpdateEstado =    "UPDATE compartir SET estado=2 
-                                                WHERE tareas_idtareas ='".$id."' 
-                                                AND usuario_idUsuario=".$idcorreo;
-
-                        if(mysqli_query($conex,$queryUpdateEstado)){
-                            if(mysqli_affected_rows($conex)>0){   
-                                $Respuesta['estado'] = 1;
-                                $Respuesta['mensaje'] = "La tarea se actualizó correctamente";
-                            }else{
-                                $Respuesta['estado'] = 1;
-                                $Respuesta['mensaje'] = "La tarea se actualizó correctamente";
-                            }
-                        }else{
-                            $Respuesta['estado'] = 0;
-                            $Respuesta['mensaje'] = "Ocurrio un error desconocido";
-                        }
-                    }else{
-                        $Respuesta['estadoAct'] = 0;        // estadoAct = 0 = "Pendiente"
-
-                        $queryUpdateEstado =    "UPDATE compartir SET estado=0 
-                                                WHERE tareas_idtareas ='".$id."' 
-                                                AND usuario_idUsuario=".$idcorreo;
-
-                        if(mysqli_query($conex,$queryUpdateEstado)){
-                            $Respuesta['estado'] = 1;
-                            $Respuesta['mensaje'] = "La tarea se actualizó correctamente";
-                        }else{
-                            $Respuesta['estado'] = 0;
-                            $Respuesta['mensaje'] = "Ocurrio un error desconocido";
-                        }
-                    }  
-                }else{
-                    $Respuesta['estadoAct'] = $renglonEntregaById['estado'];;
-                    $Respuesta['estado'] = 1;
-                    $Respuesta['mensaje'] = "No se realizaron cambios";
-                }
+            if(mysqli_affected_rows($conex)>0){   
+                $Respuesta['estado'] = 1;
+                $Respuesta['mensaje'] = "El artículo se actualizó correctamente";
+            }else{
+                $Respuesta['estado'] = 0;
+                $Respuesta['mensaje'] = "No se realizaron cambios";
             }
         }else{
             $Respuesta['estado'] = 0;
             $Respuesta['mensaje'] = "Ocurrio un error desconocido";
         } 
-
-        // Envía la respuesta para poder utilizarla en el javascript
         echo json_encode($Respuesta);
         mysqli_close($conex);
     }
@@ -302,36 +223,28 @@
     el usuario y comprueba el estado de la tarea, para ponerla como Pendiente, Completada o Retrasada.
     */
     function actionReadByIdPHP($conex){
-        $id = $_POST['id'];
-
-        // Lee los datos del registro según el id de la tarea
-        $queryReadById = "SELECT * FROM tareas JOIN compartir ON compartir.tareas_idtareas = tareas.idtareas 
-                                WHERE idtareas='".$id."' AND tareas_idtareas=".$id;
-
-        $resultById = mysqli_query($conex,$queryReadById);
+        $id                  = $_POST['id'];
+        $queryReadById       = "SELECT * FROM articulo  
+                                WHERE idarticulo='".$id."' ";
+        $resultById          = mysqli_query($conex,$queryReadById);
         $numeroRegistrosById = mysqli_num_rows($resultById);
 
-        // Si encuentra el registro, guarda los datos en $Respuesta
-        // Sino envía un mensaje de error
         if($numeroRegistrosById>0){
-            $Respuesta['estado']  = 1;
+           
             $Respuesta['mensaje'] = "Registro encontrado";
              
-            $renglonEntregaById = mysqli_fetch_assoc($resultById);
+            $RenglonEntregaById = mysqli_fetch_assoc($resultById);
 
-            $Respuesta['idtareas'] = $renglonEntregaById['idtareas'];
-            $Respuesta['nom_tarea'] = $renglonEntregaById['nom_tarea'];
-            $Respuesta['fecha'] = $renglonEntregaById['fecha'];
-            $Respuesta['lugar'] = $renglonEntregaById['lugar'];
-            $Respuesta['duracion'] = $renglonEntregaById['duracion'];
-            $Respuesta['descripcion'] = $renglonEntregaById['descripcion'];
-            $Respuesta['estadoAct'] = $renglonEntregaById['estado'];
+            $Respuesta['idarticulo'] = $RenglonEntregaById['idarticulo'];
+            $Respuesta['nombre'] = $RenglonEntregaById['nombre'];
+            $Respuesta['cantidad'] = $RenglonEntregaById['cantidad'];
+            $Respuesta['fecha_creacion'] = $RenglonEntregaById['fecha_creacion'];
+            $Respuesta['fecha_modificacion'] = $RenglonEntregaById['fecha_modificacion'];
+           
         }else{
-            $Respuesta['estado'] = 0;
+            
             $Respuesta['mensaje'] = "No se encuentra el registro";
         }
-
-        // Envía la respuesta para poder utilizarla en el javascript
         echo json_encode($Respuesta);
         mysqli_close($conex);
     }

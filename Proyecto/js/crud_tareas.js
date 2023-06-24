@@ -165,13 +165,10 @@ function actionReadById(id){
 // -----------------  UPDATE TAREAS  ------------------
 // Funciona al oprimir el botón verde de editar para cada tarea
 async function actionUpdate(){
-  const email = await obtenerCorreo();
 
-  let nom_tarea = document.getElementById("nombreTarea_Update").value;
-  let fecha = document.getElementById("fecha_Update").value;
-  let lugar = document.getElementById("lugar_Update").value;
-  let duracion = document.getElementById("duracion_Update").value;
-  let descripcion = document.getElementById("descripcion_Update").value;
+  let nombre = document.getElementById("nombre_Update").value;
+  let cantidad = document.getElementById("cantidad_Update").value;
+
   let estadoAct;
 
   let fechaActual = new Date();
@@ -179,26 +176,21 @@ async function actionUpdate(){
   let anio = fechaActual.getFullYear();
   let mes = String(fechaActual.getMonth() + 1).padStart(2, '0');
   let dia = String(fechaActual.getDate()).padStart(2, '0');
-  let fechaFormateada = anio + '-' + mes + '-' + dia;
+  let fecha_modificacion = anio + '-' + mes + '-' + dia;
 
   console.log(fecha);
-  console.log(fechaFormateada);
+  console.log(fecha_modificacion);
 
-  if(nom_tarea === "" || descripcion === "" || lugar === "" || fecha === "" || duracion === ""){
+  if(nombre === "" || cantidad === "" || fecha_modificacion === "" ){
     console.log('No puso todos los campos');
     toastr.error("Favor de rellenar todos los campos. Intente de nuevo.");
   }else{
     var formData = new FormData();
         formData.append('id', idActualizar);
-        formData.append('nom_tarea', nom_tarea);
-        formData.append('fecha', fecha);
-        formData.append('lugar', lugar);
-        formData.append('duracion', duracion);
-        formData.append('descripcion', descripcion);
-        formData.append('estadoAct', estadoAct);
-        formData.append('fechaHoy', fechaFormateada);
+        formData.append('nombre', nombre);
+        formData.append('cantidad', cantidad);
+        formData.append('fecha_modificacion', fecha_modificacion);
         formData.append('accion', "update");
-        formData.append('correo', email);
   
     $.ajax({
       method:"POST",
@@ -213,26 +205,18 @@ async function actionUpdate(){
           let tabla = $("#example2").DataTable();
           console.log(JSONRespuesta.estadoAct)
           let EstAct;
-          if(JSONRespuesta.estadoAct == 1){
-            EstAct = "Completada";
-          }
-          if(JSONRespuesta.estadoAct == 0){
-            EstAct = "Pendiente";
-          }
-          if(JSONRespuesta.estadoAct == 2){
-            EstAct = "Retrasada";
-          }
+          
           let Botones="";
-            Botones = '<i class="fas fa-eye" style="font-size:25px;color: #af66eb; margin-right: 10px;" data-toggle="modal" data-target="#modal_read_tarea" onclick="actionReadById('+idActualizar+')"></i>';
+           
             Botones += '<i class="fas fa-edit" style="font-size:25px;color: #168645; margin-right: 10px;" data-toggle="modal" data-target="#modal_update_tarea" onclick="identificarActualizar('+idActualizar+')"></i>';    
             Botones += '<i class="fas fa-trash" style="font-size:25px;color: #da2c2c; margin-right: 10px;" data-toggle="modal" data-target="#modal_delete_tarea" onclick="identificarEliminar('+idActualizar+')"></i>';
-            Botones += '<i class="fas fa-share" style="font-size:25px;color: #1855b1; margin-right: 10px;" data-toggle="modal" data-target="#modal_share_tarea" onclick="Compartirid('+idActualizar+')"></i>';
+            
           ////////////////////////////////////////////////
           var temp = tabla.row("#renglon_"+idActualizar).data();
-          temp[0] = nom_tarea;
-          temp[1] = fecha;
-          temp[2] = duracion;
-          temp[3] = EstAct;
+          temp[0] = nombre;
+          temp[1] = cantidad;
+          temp[2] = fecha_creacion;
+          temp[3] = fecha_modificacion;
           temp[4] = Botones;
           tabla.row("#renglon_"+idActualizar).data(temp).draw();
           /////////////////////////////////////////////////
@@ -354,35 +338,26 @@ async function obtenerCorreo() {
 
 //Función para rellenar lo que hay en BD, para despues poder actualizar
 function identificarActualizar(id){
-    idActualizar=id;
-    //alert(idActualizar);
-  
-    $.ajax({
-      method:"POST",
-      url: "../php/crud_tareas.php",
-      data: {
-        id: idActualizar,
-        accion:"read_idAct"
-      },
-      success: function( respuesta ) {
-        JSONRespuesta = JSON.parse(respuesta);
-        if(JSONRespuesta.estado==1){
-          let nom_tarea = document.getElementById("nombreTarea_Update");
-          nom_tarea.value = JSONRespuesta.nom_tarea;
-          let descripcion = document.getElementById("descripcion_Update");
-          descripcion.value = JSONRespuesta.descripcion;
-          let lugar = document.getElementById("lugar_Update");
-          lugar.value = JSONRespuesta.lugar;
-          let fecha = document.getElementById("fecha_Update");
-          fecha.value = JSONRespuesta.fecha;
-          let duracion = document.getElementById("duracion_Update");
-          duracion.value = JSONRespuesta.duracion;
-          
-        }else{
-          toastr.error("Registro no encontrado");
-        }
-      }
-    });
+  idActualizar=id;
+  //alert(idActualizar);
+
+  $.ajax({
+    method:"POST",
+    url: "../php/crud_tareas.php",
+    data: {
+      id: idActualizar,
+      accion:"read_idAct"
+    },
+    success: function( respuesta ) {
+      JSONRespuesta = JSON.parse(respuesta);
+
+        let nombre = document.getElementById("nombre_Update");
+        nombre.value = JSONRespuesta.nombre;
+        let cantidad = document.getElementById("cantidad_Update");
+        cantidad.value = JSONRespuesta.cantidad;
+       
+    }
+  });
   }
  
 //Asigna el id al idEliminar
