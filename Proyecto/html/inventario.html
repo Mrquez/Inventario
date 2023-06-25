@@ -78,6 +78,26 @@
     session();
   </script> -->
 
+  <!-- Guardar o descargar en PDF el inventario -->
+  <script>
+    function printInventory() {
+      var table = document.getElementById("example2").outerHTML;
+      
+      // Abre una nueva ventana para imprimir el inventario.
+      var printWindow = window.open('', '', 'width=800,height=600');
+      printWindow.document.open();
+      printWindow.document.write('<center><img src="../css/Logo_cecyy.png" width="20%" height="15%"><center>');
+      printWindow.document.write('<h3>Centro de Estudios Cientificos y Tecnológicos No. 18 Zacatecas</h3>');
+      printWindow.document.write('<html><head><title>Inventario actual</title></head><body>');
+      printWindow.document.write('<h1>Inventario actual - Laboratorio de computo 1</h1>');
+      printWindow.document.write(table);
+      printWindow.document.write('</body></html>');
+      printWindow.document.close();
+      printWindow.print();
+    } 
+    
+  </script>
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -97,7 +117,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
-      <img src="../css/ESCUDO_MODIFICADO.jpg" alt="H & GT Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <img src="../css/Logo_computo.jpg" alt="H & GT Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span style="color:#FFFFFF" class="brand-text font-weight-light">Laboratorios</span>
     </a>
 
@@ -106,7 +126,7 @@
       <!-- Sidebar user (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="../../AdminLTE-master/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="../css/ESCUDO_MODIFICADO.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <div style="color:#FFFFFF" id="correo-usuario"></div>
@@ -208,13 +228,15 @@
                         <th>Unidades</th>
                         <th>Fecha de creación</th>
                         <th>Fecha de modificación</th>
-                        
                         <th width="18%">Opciones</th>
                       </tr>
                     </thead>
                     <tbody>
                     </tbody>
                   </table>
+                </div>
+                <div class="button-container">
+                  <button type="button" class="btn btn-primary  float-right"  onclick="printInventory()">Descargar inventario</button>
                 </div>
               </div>
               <!-- /.card -->
@@ -477,7 +499,7 @@
               <form>
                 <div class="form-group">
                   <br>
-                  <p>¿Está seguro de que desea eliminar este hábito?</p>
+                  <p>¿Está seguro de que desea eliminar este articulo?</p>
                 </div>
               </form>
             </div>
