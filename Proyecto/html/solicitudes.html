@@ -41,23 +41,35 @@ visualización de tareas
   <link rel="stylesheet" href="../../AdminLTE-master/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
   <!--Para saber si existe la sesion o el correo-->
-  <!-- <script>
+  <script>
     async function session() {
       const response = await fetch("../php/session.php");
       const data = await response.json();
-      const user = data.correo;
+      const user = data.num_empleado;
+      console.log(user);
+      if (user== "120846"){
+          document.getElementById("inventario").style.display= "list-item";
+          document.getElementById("solicitudes").style.display= "list-item";
+          document.getElementById("solicitar").style.display= "none";
+        }else{
+          window.location.replace("../html/inicio.html");
+        }
+  
       if (user == null || user === "") {
         window.location.replace("../html/login.html");
       } else {
+        
         // Mostrar el correo electrónico en el elemento HTML
-        const correoElement = document.getElementById("correo-usuario");
+  
+        const correoElement = document.getElementById("num_empleado");
+        
         correoElement.innerText = user;
         return user;
       }
+      console.log(num_empleado);
     }
-  
     session();
-  </script> -->
+  </script>
   
 </head>
 <body class="hold-transition sidebar-mini">
