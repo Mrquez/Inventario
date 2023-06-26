@@ -20,22 +20,22 @@ y las tareas pendientes
   <!-- Theme style -->
   <link rel="stylesheet" href="../../AdminLTE-master/dist/css/adminlte.min.css">
 </head>
-<!-- <script>
+<script>
   async function session() {
     const response = await fetch("../php/session.php");
     const data = await response.json();
-    const user = data.correo;
+    const user = data.num_empleado;
     if (user == null || user === "") {
       window.location.replace("../html/login.html");
     } else {
       // Mostrar el correo electrónico en el elemento HTML
-      const correoElement = document.getElementById("correo-usuario");
+      const correoElement = document.getElementById("num_empleado");
       correoElement.innerText = user;
       return user;
     }
   }
   session();
-</script> -->
+</script>
 
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
@@ -76,7 +76,7 @@ y las tareas pendientes
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-            <li class="nav-item">
+            <li class="nav-item" >
                 <a href="#" color="#fff" class="nav-link">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" Fill="white" class="bi bi-house-fill" viewBox="0 0 16 16">
                     <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z"/>
