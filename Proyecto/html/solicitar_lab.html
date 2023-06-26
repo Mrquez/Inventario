@@ -40,6 +40,7 @@ visualización de tareas
   <link rel="stylesheet" href="../../AdminLTE-master/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="../../AdminLTE-master/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
+
   <!--Para saber si existe la sesion o el correo-->
   <!-- <script>
     async function session() {
@@ -178,20 +179,17 @@ visualización de tareas
           <div class="col-md-12">
             <div class="card card-primary card-outline">
               <div class="card-body">
-                <button type="button" class="btn btn-primary  float-right" data-toggle="modal" data-target="#modal_create_tarea">Nueva tarea</button>
+                <button type="button" class="btn btn-primary  float-right" data-toggle="modal" data-target="#modal_create_tarea">Nueva solicitud</button>
                 <!--Table view tasks-->
                 <br><br>
                 <div class="card-body p-0">
                   <table id="example2" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th>Remitente</th>
-                        <th>Fecha en que <br> solicitó</th>
-                        <th>Descripción</th>
-                        <th>Fecha</th>
-                        <th>Hora</th>
-                        <th>Status</th>
                         
+                        <th>Fecha solicitada</th>
+                        <th>Descripción</th>
+                        <th>Status</th>
                         <th width="18%">Opciones</th>
                       </tr>
                     </thead>
@@ -213,39 +211,64 @@ visualización de tareas
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Nueva tarea</h4>
+              <h4 class="modal-title">Nueva solicitud</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
               <form>
-                <div class="form-group">
-                  <label for="nombreTarea">Nombre de la tarea:</label>
-                  <input type="text" class="form-control" id="nombreTarea" placeholder="Agregar título">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="fecha">Fecha en que solicita el laboratorio</label>
+                    <input type="date" class="form-control" id="fecha">
+                  </div>
                 </div>
+                <div class="row">
+                  <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="duracion">Hora de inicio</label>
+                    <div class="bootstrap-timepicker">
+                      <div class="form-group">
+                        <div class="input-group date" id="timepicker" data-target-input="nearest">
+                          <input type="text" class="form-control datetimepicker-input" data-target="#timepicker"/>
+                          <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
+                              <div class="input-group-text"><i class="far fa-clock"></i></div>
+                          </div>
+                          </div>
+                        <!-- /.input group -->
+                      </div>
+                      <!-- /.form group -->
+                    </div>
+                    
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="duracion">Hora de fin</label>
+                    <div class="bootstrap-timepicker">
+                      <div class="form-group">
+                        <div class="input-group date" id="timepicker1" data-target-input="nearest">
+                          <input type="text" class="form-control datetimepicker-input" data-target="#timepicker1"/>
+                          <div class="input-group-append" data-target="#timepicker1" data-toggle="datetimepicker">
+                              <div class="input-group-text"><i class="far fa-clock"></i></div>
+                          </div>
+                          </div>
+                        <!-- /.input group -->
+                      </div>
+                      <!-- /.form group -->
+                    </div>
+                  </div>
+                </div>
+                
+                </div>
+              
                 <div class="form-group">
                   <label for="descripcion">Descripción</label>
                   <textarea class="form-control" rows="2" placeholder="Agregar descripción" id="descripcion"></textarea>
                 </div>
-                <div class="form-group">
-                  <label for="lugar">Lugar</label>
-                  <input type="text" class="form-control" id="lugar" placeholder="Agregar ubicación">
-                </div>
-                <div class="row">
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label for="fecha">Fecha límite</label>
-                      <input type="date" class="form-control" id="fecha">
-                    </div>
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label for="duracion">Duración</label>
-                      <input type="text" class="form-control" id="duracion" placeholder="Agregar duración estimada (horas, días, etc)">
-                    </div>
-                  </div>
-                </div>
+                
+                
               </form>
             </div>
             <div class="modal-footer">
@@ -433,6 +456,9 @@ visualización de tareas
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
+
+
+
 
 <!-- jQuery -->
 <script src="../../AdminLTE-master/plugins/jquery/jquery.min.js"></script>
@@ -636,6 +662,12 @@ visualización de tareas
         body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
       })
     });
+    $('#timepicker').datetimepicker({
+      format: 'LT'
+    })
+    $('#timepicker1').datetimepicker({
+      format: 'LT'
+    })
   });
 </script>
 
@@ -656,6 +688,7 @@ visualización de tareas
     });
   });
 </script>
+
 
 <script>
   $(document).ready(function(){
