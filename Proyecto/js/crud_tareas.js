@@ -13,10 +13,13 @@ let idMarcar=0;
 
 // ----------------  CREATE TAREAS  -----------------
 // Funciona al oprimir el botón de Nueva Tarea
+
+
 async function actionCreate(){
   //Recuperamos los datos del formulario
   let nombre = document.getElementById('nombre').value;
   let cantidad = document.getElementById('cantidad').value;
+  let Descripcion = document.getElementById('Descripcion').value;
 
   let estadoAct;
 
@@ -42,7 +45,7 @@ async function actionCreate(){
   //const email = await obtenerCorreo();
 
   // Validaciones not null, para asegurar que llene todos los campos
-  if(nombre === "" || cantidad === "" || fecha_creacion === ""){
+  if(nombre === "" || cantidad === "" || Descripcion === "" || fecha_creacion === ""){
       console.log('No puso todos los campos');
       toastr.error("Favor de rellenar todos los campos. Intente de nuevo.");
   }else{
@@ -51,11 +54,13 @@ async function actionCreate(){
       formData.append('fecha_creacion', fecha_creacion);
       formData.append('fecha_modificacion', fecha_modificacion);
       formData.append('cantidad', cantidad);
+      formData.append('Descripcion', Descripcion);
       formData.append('accion',"create");
       
 
       console.log(nombre);
       console.log(cantidad);
+      console.log(Descripcion);
       console.log(fecha_creacion);
       console.log(fecha_modificacion);
 
@@ -84,7 +89,7 @@ async function actionCreate(){
               Botones += '<i class="fas fa-edit" style="font-size:25px;color: #168645; margin-right: 10px;" data-toggle="modal" data-target="#modal_update_tarea" onclick="identificarActualizar('+JSONRespuesta.id+')"></i>';    
               Botones += '<i class="fas fa-trash" style="font-size:25px;color: #da2c2c; margin-right: 10px;" data-toggle="modal" data-target="#modal_delete_tarea" onclick="identificarEliminar('+JSONRespuesta.id+')"></i>';
              
-            tabla.row.add([nombre,  cantidad, fecha_creacion, fecha_modificacion, Botones]).draw().node().id="renglon_"+JSONRespuesta.id;
+            tabla.row.add([nombre,Descripcion,  cantidad, fecha_creacion, fecha_modificacion, Botones]).draw().node().id="renglon_"+JSONRespuesta.id;
             //toastr.success(JSONRespuesta.mensaje);
           }else{
             toastr.error(JSONRespuesta.mensaje);
@@ -120,7 +125,7 @@ async function actionRead() {
                 Botones += '<i class="fas fa-edit" style="font-size:25px;color: #168645; margin-right: 10px;" data-toggle="modal" data-target="#modal_update_tarea" onclick="identificarActualizar('+articulo.idarticulo+')"></i>';    
                 Botones += '<i class="fas fa-trash" style="font-size:25px;color: #da2c2c; margin-right: 10px;" data-toggle="modal" data-target="#modal_delete_tarea" onclick="identificarEliminar('+articulo.idarticulo+')"></i>';
                 
-              tabla.row.add([articulo.nombre, articulo.cantidad, articulo.fecha_creacion,articulo.fecha_modificacion, Botones]).draw().node().id="renglon_"+articulo.idarticulo;
+              tabla.row.add([articulo.nombre, articulo.Descripcion, articulo.cantidad, articulo.fecha_creacion,articulo.fecha_modificacion, Botones]).draw().node().id="renglon_"+articulo.idarticulo;
             });
       console.log(respuesta);
     }
@@ -168,27 +173,31 @@ async function actionUpdate(){
 
   let nombre = document.getElementById("nombre_Update").value;
   let cantidad = document.getElementById("cantidad_Update").value;
+  let Descripcion = document.getElementById("Descripcion_Update").value;
+  let fecha_creacion = document.getElementById("fechaCreacion_Update").value;
 
   let estadoAct;
 
   let fechaActual = new Date();
-  
+
   let anio = fechaActual.getFullYear();
   let mes = String(fechaActual.getMonth() + 1).padStart(2, '0');
   let dia = String(fechaActual.getDate()).padStart(2, '0');
   let fecha_modificacion = anio + '-' + mes + '-' + dia;
 
-  console.log(fecha);
+  console.log(fechaActual);
   console.log(fecha_modificacion);
 
-  if(nombre === "" || cantidad === "" || fecha_modificacion === "" ){
+  if(nombre === "" || cantidad === "" || Descripcion === "" || fecha_modificacion === "" ){
     console.log('No puso todos los campos');
     toastr.error("Favor de rellenar todos los campos. Intente de nuevo.");
   }else{
     var formData = new FormData();
         formData.append('id', idActualizar);
         formData.append('nombre', nombre);
+        formData.append('Descripcion', Descripcion);
         formData.append('cantidad', cantidad);
+        formData.append('fecha_creacion', fecha_creacion);
         formData.append('fecha_modificacion', fecha_modificacion);
         formData.append('accion', "update");
   
@@ -214,10 +223,11 @@ async function actionUpdate(){
           ////////////////////////////////////////////////
           var temp = tabla.row("#renglon_"+idActualizar).data();
           temp[0] = nombre;
-          temp[1] = cantidad;
-          temp[2] = fecha_creacion;
-          temp[3] = fecha_modificacion;
-          temp[4] = Botones;
+          temp[1] = Descripcion;
+          temp[2] = cantidad;
+          temp[3] = fecha_creacion;
+          temp[4] = fecha_modificacion;
+          temp[5] = Botones;
           tabla.row("#renglon_"+idActualizar).data(temp).draw();
           /////////////////////////////////////////////////
           toastr.success(JSONRespuesta.mensaje);
@@ -325,6 +335,7 @@ function limpiarpagina()
 {
     document.getElementById("nombre").value = "";
     document.getElementById("cantidad").value = "";
+    document.getElementById("Descripcion").value = "";
 
 }
 
@@ -355,6 +366,10 @@ function identificarActualizar(id){
         nombre.value = JSONRespuesta.nombre;
         let cantidad = document.getElementById("cantidad_Update");
         cantidad.value = JSONRespuesta.cantidad;
+        let Descripcion = document.getElementById("Descripcion_Update");
+        Descripcion.value = JSONRespuesta.Descripcion;
+        let fecha_creacion = document.getElementById("fechaCreacion_Update");
+        fecha_creacion.value = JSONRespuesta.fecha_creacion;
        
     }
   });

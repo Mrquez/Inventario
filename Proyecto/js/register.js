@@ -6,10 +6,10 @@ Contiene las funciones necesarias para mostrar hacer el registro validado de usu
 */
 
 function validateForm(){
-    var x = document.forms["registrar"]["correo"].value;
-    var x1 = document.forms["registrar"]["clave"].value;
-    var x2 = document.forms["registrar"]["usuario"].value;
-    var x3 = document.forms["registrar"]["clavec"].value;
+    var x = document.forms["registrar"]["num_empleado"].value;
+    var x1 = document.forms["registrar"]["contrasena"].value;
+    var x2 = document.forms["registrar"]["nom_usuario"].value;
+    var x3 = document.forms["registrar"]["contrasena2"].value;
 
 
       if(x==""|| x1=="" || x2==""){

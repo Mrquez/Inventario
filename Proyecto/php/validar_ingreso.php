@@ -9,12 +9,12 @@ Funciones: ninguna
 include('connect.php');
 session_start();
 
-$usuario = $_POST['correo'];
-$contrasena = $_POST['clave'];
+$num_empleado = $_POST['num_empleado'];
+$contrasena = $_POST['contrasena'];
 
-$_SESSION['correo'] = $usuario;
+$_SESSION['num_empleado'] = $num_empleado;
 
-$consulta = "SELECT * FROM usuario WHERE correo= '$usuario' and contrasena ='$contrasena'";
+$consulta = "SELECT * FROM usuario WHERE num_empleado= '$num_empleado' and contrasena ='$contrasena'";
 $resultado = mysqli_query($conex,$consulta);
 $datos = mysqli_fetch_array($resultado);
 $filas = mysqli_num_rows($resultado);
@@ -22,7 +22,8 @@ $filas = mysqli_num_rows($resultado);
 
 if($filas)
 {
-    header("location:../html/calendario.html");
+    
+    header("location:../html/inicio.html");
 }
 else{
     echo "<script>

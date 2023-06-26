@@ -7,11 +7,11 @@ Funciones: ninguna
 
 include('connect.php');
 
-$usuario=$_POST['usuario'];
-$correo=$_POST['correo'];
-$contrasena=$_POST['clave'];
+$nom_usuario=$_POST['nom_usuario'];
+$num_empleado=$_POST['num_empleado'];
+$contrasena=$_POST['contrasena'];
 
-$consulta = "SELECT * FROM usuario WHERE correo = '$correo'";
+$consulta = "SELECT * FROM usuario WHERE num_empleado = '$num_empleado'";
 $resultado = mysqli_query($conex,$consulta);
 $rconsulta = mysqli_num_rows($resultado);
 
@@ -19,14 +19,14 @@ if($rconsulta)
 {
     echo "
     <script>
-        alert('El correo ya se encuentra asociado a un usuario');
+        alert('El num_empleado ya se encuentra asociado a un usuario');
         window.location = '../html/register.html';
     </script>
     ";
 }
 else
 {
-    $query = "INSERT INTO usuario(correo,contrasena,nom_usuario) VALUES ('$correo','$contrasena','$usuario')";
+    $query = "INSERT INTO usuario(nom_usuario,num_empleado,contrasena) VALUES ('$nom_usuario','$num_empleado','$contrasena')";
     $resultado = mysqli_query($conex,$query);
     echo "
     <script>

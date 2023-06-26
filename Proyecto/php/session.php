@@ -7,7 +7,7 @@ Funciones: ninguna
 */ 
 
     session_start();
-    $correo = isset($_SESSION['correo']) ? $_SESSION['correo'] : null;
-    echo json_encode(array('correo' => $correo));
+    $num_empleado = isset($_SESSION['num_empleado']) ? $_SESSION['num_empleado'] : null;
+    echo json_encode(array('num_empleado' => $num_empleado));
 ?>
 

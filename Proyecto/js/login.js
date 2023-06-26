@@ -5,8 +5,8 @@ Contiene las funciones necesarias para iniciar sesión en el sistema, validando 
 */
 
 function validateForm(){
-    var x = document.forms["inicio"]["correo"].value;
-    var x1 = document.forms["inicio"]["clave"].value;
+    var x = document.forms["inicio"]["num_empleado"].value;
+    var x1 = document.forms["inicio"]["contrasena"].value;
 
       if(x==""|| x1==""){
 

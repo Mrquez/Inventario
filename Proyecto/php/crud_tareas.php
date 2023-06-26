@@ -71,6 +71,7 @@
         $nombre = $_POST['nombre'];
         //$fecha = $_POST['fecha'];  
         $cantidad = $_POST['cantidad'];
+        $Descripcion = $_POST['Descripcion'];
         $fecha_creacion= $_POST['fecha_creacion'];
         $fecha_modificacion= $_POST['fecha_modificacion'];
        // $duracion = $_POST['duracion'];
@@ -78,8 +79,8 @@
         //$estadoAct = $_POST['estadoAct'];
 
         // Crea el nuevo registro de tarea en la BD
-        $queryCreate = "INSERT INTO `articulo`(`nombre`,`fecha_creacion`,`fecha_modificacion`,`cantidad`) 
-                        VALUES ('$nombre','$fecha_creacion','$fecha_modificacion','$cantidad')";
+        $queryCreate = "INSERT INTO `articulo`(`nombre`,`fecha_creacion`,`fecha_modificacion`,`cantidad`,`Descripcion`) 
+                        VALUES ('$nombre','$fecha_creacion','$fecha_modificacion','$cantidad','$Descripcion')";
                         if(mysqli_query($conex,$queryCreate)){
                             $Respuesta['id'] = mysqli_insert_id($conex);   
                 
@@ -166,6 +167,7 @@
                 $Entrega = array();
                 $Entrega['idarticulo'] = $RenglonEntrega['idarticulo'];
                 $Entrega['nombre'] = $RenglonEntrega['nombre'];
+                $Entrega['Descripcion'] = $RenglonEntrega['Descripcion'];
                 $Entrega['cantidad'] = $RenglonEntrega['cantidad'];
                 $Entrega['fecha_creacion'] = $RenglonEntrega['fecha_creacion'];
                 $Entrega['fecha_modificacion'] = $RenglonEntrega['fecha_modificacion'];
@@ -189,12 +191,14 @@
     function actionUpdatePHP($conex){
         $id = $_POST['id'];
         $nombre = $_POST['nombre'];
+        $Descripcion = $_POST['Descripcion'];
         $cantidad = $_POST['cantidad'];
         $fecha_creacion= $_POST['fecha_creacion'];
         $fecha_modificacion= $_POST['fecha_modificacion'];
 
         $queryUpdate = "UPDATE articulo SET
-                 nombre='".$nombre."', 
+                 nombre='".$nombre."',
+                 Descripcion='".$Descripcion."', 
                  cantidad='".$cantidad."', 
                  fecha_creacion='".$fecha_creacion."', 
                  fecha_modificacion='".$fecha_modificacion."'
@@ -238,6 +242,7 @@
             $Respuesta['idarticulo'] = $RenglonEntregaById['idarticulo'];
             $Respuesta['nombre'] = $RenglonEntregaById['nombre'];
             $Respuesta['cantidad'] = $RenglonEntregaById['cantidad'];
+            $Respuesta['Descripcion'] = $RenglonEntregaById['Descripcion'];
             $Respuesta['fecha_creacion'] = $RenglonEntregaById['fecha_creacion'];
             $Respuesta['fecha_modificacion'] = $RenglonEntregaById['fecha_modificacion'];
            

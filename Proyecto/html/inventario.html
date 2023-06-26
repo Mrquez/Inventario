@@ -225,6 +225,7 @@
                     <thead>
                       <tr>
                         <th>Artículo</th>
+                        <th>Descripción</th>
                         <th>Unidades</th>
                         <th>Fecha de creación</th>
                         <th>Fecha de modificación</th>
@@ -265,6 +266,10 @@
           <div class="col-5">
             <label for="nombreHabito">Nombre del artículo </label>
             <input type="text" class="form-control" id="nombre" placeholder="Agregar nombre del artículo" >
+          </div>
+          <div class="col-5">
+            <label for="nombreHabito">Descripcion</label>
+            <input type="text" class="form-control" id="Descripcion" placeholder="Agregar descripcion del artículo" >
           </div>
           <div class="col-5">
             <label for="descripcion">Unidades</label>
@@ -377,7 +382,17 @@
                   <input type="text" class="form-control" id="nombre_Update" placeholder="Agregar nombre del artículo" >
                 </div>
                 <div class="col-5">
-                  <label for="descripcion">Unidades</label>
+                  <label for="fecha_creacion">Fecha de creacion</label>
+                  <input type="text" class="form-control" id="fechaCreacion_Update" placeholder="" disabled >
+                
+                </div>
+                <div class="col-5">
+                  <label for="descripcion">Descripción</label>
+                  <input type="text" class="form-control" id="Descripcion_Update" placeholder="Descripcion del articulo" >
+                
+                </div>
+                <div class="col-5">
+                  <label for="unidades">Unidades</label>
                   <input type="text" class="form-control" id="cantidad_Update" placeholder="Agregar cantidad" >
                 
                 </div>
@@ -389,7 +404,7 @@
             <!--Boton de guardar y cancelar-->
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-primary" data-dismiss="modal" onclick=" actionCreate()">Guardar</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal" onclick=" actionUpdate()">Guardar</button>
             </div>
       
           </div>
