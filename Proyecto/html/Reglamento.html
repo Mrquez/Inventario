@@ -132,7 +132,7 @@ y las tareas pendientes
               </a>
           </li>
           <li class="nav-item">
-            <a href="Reglamento.html" class="nav-link">
+            <a href="../html/Reglamento.html" class="nav-link">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-file-earmark-ruled" viewBox="0 0 16 16">
                 <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V9H3V2a1 1 0 0 1 1-1h5.5v2zM3 12v-2h2v2H3zm0 1h2v2H4a1 1 0 0 1-1-1v-1zm3 2v-2h7v1a1 1 0 0 1-1 1H6zm7-3H6v-2h7v2z"/>
               </svg>
@@ -168,7 +168,6 @@ y las tareas pendientes
             <div class="col-sm-6">
               <div class="info">
               <h1><strong>
-                Bienvenido Docente 
                 </div>
                 <small></small>
               </strong></h1>
@@ -186,84 +185,13 @@ y las tareas pendientes
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <center><img src="../css/CECyT.png " width="70%" height="70%"></center>
+        <center><embed src="Reglamento del centro de cómputo.pdf" type="application/pdf" width="100%" height="600px" /></center>
         <!-- /.row -->
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
-  <!-- READ Habito -->
-  <div class="modal fade" id="modal_read_tarea">
-    <div class="modal-dialog modal-default">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Detalles del habito</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <label for="nombreHabito">Nombre de hábito </label>
-              <input type="text" class="form-control" id="nombreHabitoRead" placeholder="Agregar nombre de hábito" disabled>
-            </div>
-            <div class="form-group">
-              <label for="descripcion">Descripción</label>
-              <textarea class="form-control" rows="2" placeholder="Agregar descripción" id="descripcionRead"disabled></textarea>
-            </div>
-            
-              
-                <!-- poner dias que aplica-->
-             
-                <label for="Repetir">Repetir:</label>
-
-                <br>
-                
-                <div id="checkboxContainer" style="display: block;">
-                  <label for="Lunes">Lunes</label>
-                  <input type="checkbox" id="lunesRead" value=""disabled>&nbsp;&nbsp;
-                  <label for="Martes">Martes</label>
-                  <input type="checkbox" id="martesRead" value=""disabled>&nbsp;&nbsp;
-                  <label for="Miercoles">Miercoles</label>
-                  <input type="checkbox" id="miercolesRead" value=""disabled>
-                  <br>
-                  <label for="Jueves">Jueves</label> 
-                  <input type="checkbox" id="juevesRead" value=""disabled>&nbsp;&nbsp;
-                  <label for="Viernes">Viernes</label>
-                  <input type="checkbox" id="viernesRead" value=""disabled>&nbsp;&nbsp;
-                  <label for="Sábado">Sábado</label>
-                  <input type="checkbox" id="sabadoRead" value=""disabled>
-                  <br>
-                  <label for="Domingo">Domingo</label>
-                  <input type="checkbox" id="domingoRead" value=""disabled>
-                  <br>
-                  <br>
-                </div> 
-                <!-- Termina dias que aplica-->
-              
-              
-            
-  
-            <!-- Prioridad-->
-            <div id="PrioridadAlta" style="display: none;"><div class="external-event bg-danger">Prioridad Alta</div></div>
-            <div id="PrioridadMedia" style="display: none;"><div class="external-event bg-warning">Prioridad Media</div></div>
-            <div id="PrioridadBaja" style="display: none;"><div class="external-event bg-success">Prioridad Baja</div></div>
-            
-            
-          </form>
-        </div>
-        
-      </div>
-      <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
-
-
 
 
   <footer class="main-footer">
@@ -311,208 +239,10 @@ y las tareas pendientes
 <script src="../../AdminLTE-master/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 
-<script>
-$(document).ready(function() {
-  // Hacer una solicitud AJAX al archivo PHP para obtener los eventos de la base de datos
-  $.ajax({
-    url: '../php/calendario.php',
-    type: 'GET',
-    dataType: 'json',
-    success: function(data) {
-      // Los eventos se han recuperado exitosamente
-      // Utiliza los datos para inicializar el calendario
-      var calendarEl = document.getElementById('calendar');
-      var calendar = new FullCalendar.Calendar(calendarEl, {
-        headerToolbar: {
-        left  : 'prev,next today',
-        center: 'title',
-        right : 'dayGridMonth,timeGridWeek,timeGridDay'
-      },
-      themeSystem: 'bootstrap',
-        events: data  // Utiliza los eventos recuperados de la base de datos
-      });
-      calendar.render();
-    },
-    error: function() {
-      // Hubo un error al recuperar los eventos
-      alert('Error al recuperar los eventos de la base de datos.');
-    }
-  });
-});
 
-  $(function () {
-
-    /* initialize the external events
-     -----------------------------------------------------------------*/
-    function ini_events(ele) {
-      ele.each(function () {
-
-        // create an Event Object (https://fullcalendar.io/docs/event-object)
-        // it doesn't need to have a start or end
-        var eventObject = {
-          title: $.trim($(this).text()) // use the element's text as the event title
-        }
-
-        // store the Event Object in the DOM element so we can get to it later
-        $(this).data('eventObject', eventObject)
-
-        // make the event draggable using jQuery UI
-        $(this).draggable({
-          zIndex        : 1070,
-          revert        : true, // will cause the event to go back to its
-          revertDuration: 0  //  original position after the drag
-        })
-
-      })
-    }
-
-    /* initialize the calendar
-     -----------------------------------------------------------------*/
-    //Date for the calendar events (dummy data)
-    var date = new Date()
-    var d    = date.getDate(),
-        m    = date.getMonth(),
-        y    = date.getFullYear()
-
-    var Calendar = FullCalendar.Calendar;
-    var Draggable = FullCalendar.Draggable;
-
-    var checkbox = document.getElementById('drop-remove');
-    var calendarEl = document.getElementById('calendar');
-
-    // initialize the external events
-    // ----------------------------------------------------------------
-
-    var calendar = new Calendar(calendarEl, {
-      headerToolbar: {
-        left  : 'prev,next today',
-        center: 'title',
-        right : 'dayGridMonth,timeGridWeek,timeGridDay'
-      },
-      themeSystem: 'bootstrap',
-      //Random default events
-      events: [
-        {
-          title          : 'Tarea Alta',
-          start          : new Date(y, m, 1),
-          backgroundColor: '#e83e8c', //
-          borderColor    : '#e83e8c', //red
-          url            :  '#',
-          allDay         : true
-        },
-        {
-          title          : 'Tarea Media',
-          start          : new Date(y, m, 2),
-          backgroundColor: '#6979F8', //
-          borderColor    : '#6979F8', //Olive
-          url            :  '#',
-          allDay         : true
-        },
-        {
-          title          : 'Tarea Baja',
-          start          : new Date(y, m, 3),
-          backgroundColor: '#20c997', //
-          borderColor    : '#20c997', //teal
-          url            :  '#',
-          allDay         : true
-        },
-        {
-          title          : 'Tarea Media',
-          start          : new Date(y, m, 13),
-          backgroundColor: '#6979F8', //
-          borderColor    : '#6979F8', //Olive
-          url            :  '#',
-          allDay         : true
-        },
-        {
-          title          : 'Tarea Baja',
-          start          : new Date(y, m+1, 21),
-          backgroundColor: '#20c997', //
-          borderColor    : '#20c997', //teal
-          url            :  '#',
-          allDay         : true
-        },
-        {
-          title          : 'Tarea Alta',
-          start          : new Date(y, m, 13),
-          backgroundColor: '#e83e8c', //
-          borderColor    : '#e83e8c', //red
-          url            :  '#',
-          allDay         : true
-        },
-        {
-          title          : 'Tarea Baja',
-          start          : new Date(y, m, 13),
-          backgroundColor: '#20c997', //
-          borderColor    : '#20c997', //teal
-          url            :  '#',
-          allDay         : true
-        }
-      ],
-      editable  : false,
-      droppable : true, // this allows things to be dropped onto the calendar !!!
-      drop      : function(info) {
-        // is the "remove after drop" checkbox checked?
-        if (checkbox.checked) {
-          // if so, remove the element from the "Draggable Events" list
-          info.draggedEl.parentNode.removeChild(info.draggedEl);
-        }
-      }
-    });
-
-    calendar.render();
-    // $('#calendar').fullCalendar()
-
-    /* ADDING EVENTS */
-    var currColor = '#3c8dbc' //Red by default
-    // Color chooser button
-    $('#color-chooser > li > a').click(function (e) {
-      e.preventDefault()
-      // Save color
-      currColor = $(this).css('color')
-      // Add color effect to button
-      $('#add-new-event').css({
-        'background-color': currColor,
-        'border-color'    : currColor
-      })
-    })
-    $('#add-new-event').click(function (e) {
-      e.preventDefault()
-      // Get value and make sure it is not null
-      var val = $('#new-event').val()
-      if (val.length == 0) {
-        return
-      }
-
-      // Add draggable funtionality
-      ini_events(event)
-
-      // Remove event from text input
-      $('#new-event').val('')
-    })
-  })
-</script>
-<script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
-</script>.
-<script>
-  $(document).ready(function(){
-    actionReadCalendario();
-  });
-</script>
 </body>
 </html>
+
+
+
+
