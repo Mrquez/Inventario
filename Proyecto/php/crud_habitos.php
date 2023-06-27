@@ -47,7 +47,7 @@
     function actionCreatePHP($conex){
         if (isset($_POST['correo'])) {
             $correo = $_POST['correo'];
-            
+            echo json_encode($correo);
             // Realizar una consulta para obtener el ID del usuario según el correo
             $QueryCorreo = "SELECT idUsuario FROM usuario WHERE correo = '$correo'";
             $ResultadoCorreo = mysqli_query($conex, $QueryCorreo);
