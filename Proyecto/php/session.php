@@ -9,5 +9,6 @@ Funciones: ninguna
     session_start();
     $num_empleado = isset($_SESSION['num_empleado']) ? $_SESSION['num_empleado'] : null;
     echo json_encode(array('num_empleado' => $num_empleado));
+
 ?>
 
