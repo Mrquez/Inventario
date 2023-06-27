@@ -255,7 +255,7 @@ visualización de tareas
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="fecha">Fecha en que solicita el laboratorio</label>
-                    <input type="date" class="form-control" id="fecha">
+                    <input type="date" class="form-control" id="fecha_solicitada">
                   </div>
                 </div>
                 <div class="row">
@@ -265,7 +265,7 @@ visualización de tareas
                     <div class="bootstrap-timepicker">
                       <div class="form-group">
                         <div class="input-group date" id="timepicker" data-target-input="nearest">
-                          <input type="text" class="form-control datetimepicker-input" data-target="#timepicker"/>
+                          <input type="text" class="form-control datetimepicker-input" data-target="#timepicker"id="hora_inicio"/>
                           <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
                               <div class="input-group-text"><i class="far fa-clock"></i></div>
                           </div>
@@ -283,7 +283,7 @@ visualización de tareas
                     <div class="bootstrap-timepicker">
                       <div class="form-group">
                         <div class="input-group date" id="timepicker1" data-target-input="nearest">
-                          <input type="text" class="form-control datetimepicker-input" data-target="#timepicker1"/>
+                          <input type="text" class="form-control datetimepicker-input" data-target="#timepicker1"id="hora_fin"/>
                           <div class="input-group-append" data-target="#timepicker1" data-toggle="datetimepicker">
                               <div class="input-group-text"><i class="far fa-clock"></i></div>
                           </div>
@@ -741,7 +741,7 @@ visualización de tareas
 </script>
 
 <!-- CRUD TAREAS -->
-<script src="../js/crud_tareas.js"></script>
+<script src="../js/crud_solicitudes.js"></script>
 
 </body>
 </html>
