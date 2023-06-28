@@ -318,52 +318,78 @@ visualización de tareas
       <!-- /.modal -->
 
       <!-- READ TAREA ------------------------------------- APRS --------------------------------------->
-      <div class="modal fade" id="modal_read_tarea">
+      <div class="modal fade" id="modal_read_tarea" >
         <div class="modal-dialog modal-default">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Detalles de la tarea</h4>
+              <h4 class="modal-title">Datos de la solicitud</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
               <form>
-                <div class="form-group">
-                  <label for="nombreTareaRead">Nombre de la tarea:</label>
-                  <input type="text" class="form-control" id="nombreTareaRead" disabled>
+                <div class="row">
+                  <div class="form-group">
+                    <label for="fecha">Fecha en que solicita el laboratorio</label>
+                    <input type="date" rows="2" class="form-control" id="fecha_solicitadaRead" disabled>
+                  </div>
+                  <div class="form-group">
+                    <label for="fecha">Fecha en que se realizó esta solicitud</label>
+                    <input type="date" rows="2" class="form-control" id="fecha_creacionRead" disabled>
+                  </div>
                 </div>
-                <div class="form-group">
-                  <label for="descripcionRead">Descripción:</label>
-                  <textarea class="form-control" rows="2" id="descripcionRead" disabled></textarea>
-                </div>
-                <div class="form-group">
-                  <label for="lugarRead">Lugar</label>
-                  <input type="text" class="form-control" id="lugarRead" disabled>
-                </div>
+               
                 <div class="row">
                   <div class="col-sm-6">
-                    <label for="fechaRead">Fecha límite:</label>
-                    <input type="date" class="form-control" id="fechaRead" disabled>
+                  <div class="form-group">
+                    <label for="duracion">Hora de inicio</label>
+                    <div class="bootstrap-timepicker">
+                      <div class="form-group">
+                        <div class="input-group date" id="timepicker" data-target-input="nearest">
+                          <input type="text" class="form-control datetimepicker-input" data-target="#timepicker"id="hora_inicioRead" disabled/>
+                          <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
+                              <div class="input-group-text"><i class="far fa-clock"></i></div>
+                          </div>
+                          </div>
+                        <!-- /.input group -->
+                      </div>
+                      <!-- /.form group -->
+                    </div>
+                    
+                  </div>
                   </div>
                   <div class="col-sm-6">
-                    <div class="form-group">
-                      <label for="duracionRead">Duración:</label>
-                      <input type="text" class="form-control" id="duracionRead" disabled>
+                  <div class="form-group">
+                    <label for="duracion">Hora de fin</label>
+                    <div class="bootstrap-timepicker">
+                      <div class="form-group">
+                        <div class="input-group date" id="timepicker1" data-target-input="nearest">
+                          <input type="text" class="form-control datetimepicker-input" data-target="#timepicker1"id="hora_finRead" disabled/>
+                          <div class="input-group-append" data-target="#timepicker1" data-toggle="datetimepicker">
+                              <div class="input-group-text"><i class="far fa-clock"></i></div>
+                          </div>
+                          </div>
+                        <!-- /.input group -->
+                      </div>
+                      <!-- /.form group -->
                     </div>
-                  </div>                  
+                  </div>
+                  </div>
+                
                 </div>
+              
+                <div class="form-group">
+                  <label for="descripcion">Descripción</label>
+                  <textarea class="form-control" rows="2" placeholder="Agregar descripción" id="descripcionRead" disabled></textarea>
+                </div>
+                
+                
               </form>
             </div>
-            <div class="modal-footer d-flex justify-content-between align-items-center">
-              <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button> -->
-              <div class="form-group">
-                <div class="custom-control custom-checkbox">
-                  <input class="custom-control-input" type="checkbox" id="completadaRead">
-                  <label for="completadaRead" class="custom-control-label">¿La tarea está completada?</label>
-                </div>
-              </div>
-              <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="marcarEstado()">Aceptar</button>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="">Aceptar</button>
             </div>
           </div>
           <!-- /.modal-content -->

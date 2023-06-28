@@ -65,13 +65,10 @@
                 $fila = mysqli_fetch_assoc($resultadonum_empleado);
                 $idnum_empleado = $fila['idUsuario'];
             }
-        }  
-        $nombreSolicitud = "SELECT nom_usuario FROM usuario where num_empleado = '$num_empleado'";
-            $resultadoNombre= mysqli_query($conex, $nombreSolicitud); 
+        }   
         
         // Recupera los datos que el usuario ingresó
         //$fecha = $_POST['fecha'];  
-        $resultadoNombre = $_POST['nom_usuario'];
         $hora_inicio = $_POST['hora_inicio'];
         $hora_fin = $_POST['hora_fin'];
         $descripcion = $_POST['descripcion'];
@@ -176,11 +173,10 @@
         $fechaHoy = $_POST['fechaHoy'];
 
         // Recopila todos los registros de tareas que están relacionados con la sesión del usuario
-        $queryRead =    "SELECT * FROM solicitud
-                        WHERE solicitud.num_empleado= '$num_empleado'";
+        $queryRead =    "SELECT u.nom_usuario, s.* FROM usuario u, solicitud s WHERE u.num_empleado=s.num_empleado";
         $resultadoRead = mysqli_query($conex, $queryRead);
         $numeroRegistros = mysqli_num_rows($resultadoRead);
-
+        
         // Si hay registros los envía al Javascript y comprueba el estado de la tarea (Pendiente, Completada, Retrasada)
         // Si no hay registros envía un mensaje diciendo que no hay registros para mostrar
         // Si ocurre un error dentro del if, envía mensajes de error
@@ -189,13 +185,14 @@
             
                 while ($renglonEntrega = mysqli_fetch_assoc($resultadoRead)) {
                     if($renglonEntrega['fecha_solicitada'] >= $fechaHoy ){
-                    $Entrega = array();
-                    
-                    $Entrega['idSolicitud'] = $renglonEntrega['idSolicitud'];
-                    $Entrega['fecha_solicitada'] = $renglonEntrega['fecha_solicitada'];
-                    $Entrega['descripcion'] = $renglonEntrega['descripcion'];
-                    $Entrega['estado'] = $renglonEntrega['estado'];
-                    array_push($Respuesta['entregas'], $Entrega);
+                       
+                        $Entrega = array();
+                        $Entrega['nom_usuario'] = $renglonEntrega['nom_usuario'];
+                        $Entrega['idSolicitud'] = $renglonEntrega['idSolicitud'];
+                        $Entrega['fecha_solicitada'] = $renglonEntrega['fecha_solicitada'];
+                        $Entrega['descripcion'] = $renglonEntrega['descripcion'];
+                        $Entrega['estado'] = $renglonEntrega['estado'];
+                        array_push($Respuesta['entregas'], $Entrega);
                 }
             }
         } else {

@@ -56,7 +56,6 @@ async function actionCreate(){
       
       
       var formData = new FormData();
-      formData.append('nom_usuario', nom_usuario);
       formData.append('fecha_solicitada', fecha_solicitada);
       formData.append('fecha_creacion', fecha_creacion);
       formData.append('hora_inicio', hora_inicio);
@@ -65,7 +64,7 @@ async function actionCreate(){
       formData.append('estado', estado);
       formData.append('num_empleado', num_empleado);
       formData.append('accion',"create");
-      console.log(nom_usuario)
+
       console.log(fecha_solicitada);
       console.log(fecha_creacion);
       console.log(descripcion);
@@ -124,10 +123,9 @@ async function actionRead() {
 
     $.ajax({
       method:"POST",
-      url: "../php/crud_solicitudes.php",
+      url: "../php/crud_solicitudes_admin.php",
       data: {
         accion: "read",
-        num_empleado: email,
         fechaHoy: fechaFormateada
       },
       success: function( respuesta ) {
@@ -143,8 +141,10 @@ async function actionRead() {
         //let num_empleado= numeros[0];
   
           tabla = $("#example2").DataTable();
+        
               JSONRespuesta.entregas.forEach(solicitud => {
                 let estadoprint;
+                
                 if(solicitud.estado=="1"){
                   estadoprint="Rechazado";
               }
@@ -156,10 +156,11 @@ async function actionRead() {
               }
                 
                 let Botones="";
-                  Botones += '<i class="fas fa-eye" style="font-size:25px;color: #af66eb; margin-right: 10px;" data-toggle="modal" data-target="#modal_read_tarea" onclick="actionReadById(' + solicitud.idSolicitud + ')"></i>';    
-                  Botones += '<i class="fas fa-trash" style="font-size:25px;color: #da2c2c; margin-right: 10px;" data-toggle="modal" data-target="#modal_delete_tarea" onclick="identificarEliminar('+solicitud.idSolicitud+')"></i>';
+                  Botones += '<i class="fas fa-eye" style="font-size:25px;color: #af66eb; margin-right: 10px;" data-toggle="modal" data-target="#modal_read_tarea" onclick="actionReadById(' + solicitud.idSolicitud + ')"></i>';
+                 
                   
-                tabla.row.add([solicitud.fecha_solicitada, solicitud.descripcion, estadoprint, Botones]).draw().node().id="renglon_"+solicitud.idSolicitud;
+                  
+                tabla.row.add([solicitud.nom_usuario, solicitud.fecha_solicitada, solicitud.descripcion, estadoprint, Botones]).draw().node().id="renglon_"+solicitud.idSolicitud;
               });
         console.log(respuesta);
       }
@@ -423,7 +424,9 @@ function limpiarpagina()
 async function obtenerCorreo() {
   const response = await fetch("../php/session.php");
   const data = await response.json();
-  const user = data.num_empleado;
+  
+  const user = data.nom_usuario;
+
   return user;
 }
 
