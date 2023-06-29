@@ -383,12 +383,12 @@ visualización de tareas
                   <label for="fecha">Fecha en que se realizó esta solicitud</label>
                   <input type="date" rows="2" class="form-control" id="fecha_creacionRead" disabled>
                 </div>
+                <label for="estado">Estado</label>
+                <div id="rechazado" style="display: none;"><div class="external-event bg-danger">Rechazado</div></div>
+                <div id="pendiente" style="display: none;"><div class="external-event bg-warning">Pendiente</div></div>
+                <div id="aceptado" style="display: none;"><div class="external-event bg-success">Aceptado</div></div>
                 
-                <div class="form-group">
-                  <label for="estado">Estado</label>
-                  <input type="text" rows="2" class="form-control" id="estadoRead" disabled>
-                </div>
-
+                  
                 <div class="form-group">
                   <label for="comentario">Comentario</label>
                   <textarea class="form-control" rows="2"  id="comentarioRead" disabled></textarea>

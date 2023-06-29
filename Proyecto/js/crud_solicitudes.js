@@ -20,7 +20,7 @@ async function actionCreate(){
   let hora_fin = document.getElementById('hora_fin').value;
   let descripcion = document.getElementById('descripcion').value;
 
-  let estadoprint="Pendiente";
+  let estadoprint='<div ><div class="external-event bg-warning">Pendiente</div></div>';
   let estado="2";
   let fecha = new Date();
   let anio = fecha.getFullYear();
@@ -84,8 +84,8 @@ async function actionCreate(){
         contentType: false,
         processData: false,
         success: function(respuesta) {
-          alert(respuesta);
           JSONRespuesta = JSON.parse(respuesta); 
+          console.log(JSONRespuesta.estado)
           if(JSONRespuesta.estado==1){
             //alert(JSONRespuesta.mensaje);
             tabla = $("#example2").DataTable();
@@ -96,7 +96,7 @@ async function actionCreate(){
             //   estadoActT = "Retrasada";
             // }
             let Botones="";
-            Botones += '<i class="fas fa-eye" style="font-size:25px;color: #af66eb; margin-right: 10px;" data-toggle="modal" data-target="#modal_read_tarea" onclick="actionReadById(' + solicitud.idSolicitud + ')"></i>';    
+            Botones += '<i class="fas fa-eye" style="font-size:25px;color: #af66eb; margin-right: 10px;" data-toggle="modal" data-target="#modal_read_tarea" onclick="actionReadById(' + JSONRespuesta.id + ')"></i>';    
               Botones += '<i class="fas fa-trash" style="font-size:25px;color: #da2c2c; margin-right: 10px;" data-toggle="modal" data-target="#modal_delete_tarea" onclick="identificarEliminar('+JSONRespuesta.id+')"></i>';
              
             tabla.row.add([fecha_solicitada,descripcion,estadoprint,  Botones]).draw().node().id="renglon_"+JSONRespuesta.id;
@@ -142,16 +142,17 @@ async function actionRead() {
   
           tabla = $("#example2").DataTable();
               JSONRespuesta.entregas.forEach(solicitud => {
-                let estadoprint;
+                let estadoprint="";
                 if(solicitud.estado=="1"){
-                  estadoprint="Rechazado";
+                  estadoprint='<div ><div class="external-event bg-danger">Rechazado</div></div>';
               }
               if(solicitud.estado=="2"){
-                  estadoprint="Pendiente";
+                  estadoprint='<div ><div class="external-event bg-warning">Pendiente</div></div>';
               }
               if(solicitud.estado=="3"){
-                  estadoprint="Aceptado";
+                  estadoprint='<div  ><div class="external-event bg-success">Aceptado</div></div>';
               }
+              
                 
                 let Botones="";
                   Botones += '<i class="fas fa-eye" style="font-size:25px;color: #af66eb; margin-right: 10px;" data-toggle="modal" data-target="#modal_read_tarea" onclick="actionReadById(' + solicitud.idSolicitud + ')"></i>';    
@@ -177,7 +178,7 @@ async function actionRead() {
       },
       success: function( respuesta ) {
         JSONRespuesta = JSON.parse(respuesta);
-        if(JSONRespuesta.estado==1){
+        //if(JSONRespuesta.estado==1){
           let fecha_solicitada = document.getElementById("fecha_solicitadaRead");
           fecha_solicitada.value=JSONRespuesta.fecha_solicitada;
           let descripcion = document.getElementById("descripcionRead");
@@ -188,13 +189,29 @@ async function actionRead() {
           hora_fin.value=JSONRespuesta.fecha;
           let fecha_creacion = document.getElementById("fecha_creacionRead");
           fecha_creacion.value=JSONRespuesta.duracion;
+
+          if(JSONRespuesta.estado=="1"){
+              let estado = document.getElementById("estadoRead");
+              estado.value= "1";
+            
+          }
+          if(JSONRespuesta.estado=="2"){
+              let estado = document.getElementById("estadoRead");
+              estado.value= "2";
+              
+          }
+          if(JSONRespuesta.estado=="3"){
+              let estado = document.getElementById("estadoRead");
+              estado.value= "3";
+              
+          }
           
           //let completadaCheckbox = document.getElementById("completadaRead");
           //completadaCheckbox.checked = JSONRespuesta.estadoAct == 1;
   
-        }else{
-          toastr.error("Registro no encontrado");
-        }
+        //}else{
+          //toastr.error("Registro no encontrado");
+        //  }
       }
     });
 }
@@ -213,7 +230,7 @@ function actionReadById(id){
     },
     success: function( respuesta ) {
       JSONRespuesta = JSON.parse(respuesta);
-      if(JSONRespuesta.estado==1){
+      // if(JSONRespuesta.estado==1){
         let fecha_solicitada = document.getElementById("fecha_solicitadaRead");
           fecha_solicitada.value=JSONRespuesta.fecha_solicitada;
           let descripcion = document.getElementById("descripcionRead");
@@ -224,12 +241,22 @@ function actionReadById(id){
           hora_fin.value=JSONRespuesta.hora_fin;
           let fecha_creacion = document.getElementById("fecha_creacionRead");
           fecha_creacion.value=JSONRespuesta.fecha_creacion;
-          
+          let comentario = document.getElementById("comentarioRead");
+          comentario.value=JSONRespuesta.comentario;
+
+          if(JSONRespuesta.estado==='1'){
+            rechazado.style.display = "block"}else{rechazado.style.display = "none"}
+  
+          if(JSONRespuesta.estado==='2'){
+            pendiente.style.display = "block";}else{pendiente.style.display = "none"}
+  
+          if(JSONRespuesta.estado==='3'){
+            aceptado.style.display = "block"}else{aceptado.style.display = "none"}
           //let completadaCheckbox = document.getElementById("completadaRead");
           //completadaCheckbox.checked = JSONRespuesta.estadoAct == 1;
-      }else{
-        toastr.error("Registro no encontrado");
-      }
+      // }else{
+      //   toastr.error("Registro no encontrado");
+      // }
     }
   });
 }

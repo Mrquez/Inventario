@@ -349,6 +349,8 @@
             $Respuesta['hora_inicio'] = $renglonEntregaById['hora_inicio'];
             $Respuesta['hora_fin'] = $renglonEntregaById['hora_fin'];
             $Respuesta['descripcion'] = $renglonEntregaById['descripcion'];
+            $Respuesta['estado'] = $renglonEntregaById['estado'];
+            $Respuesta['comentario'] = $renglonEntregaById['comentario'];
            // $Respuesta['estadoAct'] = $renglonEntregaById['estado'];
         }else{
             $Respuesta['estado'] = 0;
