@@ -56,7 +56,6 @@ async function actionCreate(){
       
       
       var formData = new FormData();
-      formData.append('nom_usuario', nom_usuario);
       formData.append('fecha_solicitada', fecha_solicitada);
       formData.append('fecha_creacion', fecha_creacion);
       formData.append('hora_inicio', hora_inicio);
@@ -65,7 +64,6 @@ async function actionCreate(){
       formData.append('estado', estado);
       formData.append('num_empleado', num_empleado);
       formData.append('accion',"create");
-      console.log(nom_usuario)
       console.log(fecha_solicitada);
       console.log(fecha_creacion);
       console.log(descripcion);
@@ -98,7 +96,7 @@ async function actionCreate(){
             //   estadoActT = "Retrasada";
             // }
             let Botones="";
-              Botones += '<i class="fas fa-edit" style="font-size:25px;color: #168645; margin-right: 10px;" data-toggle="modal" data-target="#modal_update_tarea" onclick="identificarActualizar('+JSONRespuesta.id+')"></i>';    
+            Botones += '<i class="fas fa-eye" style="font-size:25px;color: #af66eb; margin-right: 10px;" data-toggle="modal" data-target="#modal_read_tarea" onclick="actionReadById(' + solicitud.idSolicitud + ')"></i>';    
               Botones += '<i class="fas fa-trash" style="font-size:25px;color: #da2c2c; margin-right: 10px;" data-toggle="modal" data-target="#modal_delete_tarea" onclick="identificarEliminar('+JSONRespuesta.id+')"></i>';
              
             tabla.row.add([fecha_solicitada,descripcion,estadoprint,  Botones]).draw().node().id="renglon_"+JSONRespuesta.id;
@@ -324,7 +322,7 @@ async function actionUpdate(){
 function actionDelete() {
   $.ajax({
     method:"POST",
-    url: "../php/crud_tareas.php",
+    url: "../php/crud_solicitudes.php",
     data: {
       id: idEliminar,
       accion:"delete"

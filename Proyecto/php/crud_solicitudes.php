@@ -66,12 +66,9 @@
                 $idnum_empleado = $fila['idUsuario'];
             }
         }  
-        $nombreSolicitud = "SELECT nom_usuario FROM usuario where num_empleado = '$num_empleado'";
-            $resultadoNombre= mysqli_query($conex, $nombreSolicitud); 
         
         // Recupera los datos que el usuario ingresó
         //$fecha = $_POST['fecha'];  
-        $resultadoNombre = $_POST['nom_usuario'];
         $hora_inicio = $_POST['hora_inicio'];
         $hora_fin = $_POST['hora_fin'];
         $descripcion = $_POST['descripcion'];
@@ -371,28 +368,16 @@
     function actionDeletePHP($conex){
         $id = $_POST['id'];
 
-        // Primero elimina la relación entre el usuario y la tarea a eliminar
-        $queryEliminarRelacion = "DELETE FROM compartir WHERE tareas_idtareas=".$id;
-        mysqli_query($conex,$queryEliminarRelacion);
-
-        // Si se eliminó correctamente entra en el if
-        // Sino envía el mensaje de error
-        if(mysqli_affected_rows($conex)>0){
-            // Elimina de la BD la tarea
-            $queryEliminar = "DELETE FROM tareas WHERE idtareas=".$id;
+            $queryEliminar = "DELETE FROM solicitud WHERE idsolicitud=".$id;
             mysqli_query($conex,$queryEliminar);
 
             if(mysqli_affected_rows($conex)>0){
                 $Respuesta['estado']  = 1;
-                $Respuesta['mensaje'] = "La tarea se eliminó correctamente.";
+                $Respuesta['mensaje'] = "La Solicitud se eliminó correctamente.";
             }else{
                 $Respuesta['estado']  = 0;
-                $Respuesta['mensaje'] = "No se pudo eliminar la tarea.";
+                $Respuesta['mensaje'] = "No se pudo eliminar la solicitud.";
             }
-        }else{
-            $Respuesta['estado']  = 0;
-            $Respuesta['mensaje'] = "No se pudo eliminar la tarea.";
-        }
 
         // Envía la respuesta para poder utilizarla en el javascript
         echo json_encode($Respuesta);
