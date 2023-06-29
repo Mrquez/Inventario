@@ -166,41 +166,7 @@ async function actionRead() {
       }
     });
   }
-  // -----------------  READ_BY_ID TAREAS  ------------------
-  // Funciona al oprimir el botón de morado de leer para cada tarea, o cuando se selecciona desde el calendario
-  function actionReadById(id){
-    idLeer=id;
-  
-    $.ajax({
-      method:"POST",
-      url: "../php/crud_solicitudes.php",
-      data: {
-        id: idLeer,
-        accion:"read_id"
-      },
-      success: function( respuesta ) {
-        JSONRespuesta = JSON.parse(respuesta);
-        if(JSONRespuesta.estado==1){
-          let fecha_solicitada = document.getElementById("fecha_solicitadaRead");
-          fecha_solicitada.value=JSONRespuesta.fecha_solicitada;
-          let descripcion = document.getElementById("descripcionRead");
-          descripcion.value=JSONRespuesta.descripcion;
-          let hora_inicio = document.getElementById("hora_inicioRead");
-          hora_inicio.value=JSONRespuesta.hora_inicio;
-          let hora_fin = document.getElementById("hora_finRead");
-          hora_fin.value=JSONRespuesta.fecha;
-          let fecha_creacion = document.getElementById("fecha_creacionRead");
-          fecha_creacion.value=JSONRespuesta.duracion;
-          
-          //let completadaCheckbox = document.getElementById("completadaRead");
-          //completadaCheckbox.checked = JSONRespuesta.estadoAct == 1;
-  
-        }else{
-          toastr.error("Registro no encontrado");
-        }
-      }
-    });
-}
+
 
 // -----------------  READ_BY_ID TAREAS  ------------------
 // Funciona al oprimir el botón de morado de leer para cada tarea, o cuando se selecciona desde el calendario
@@ -217,17 +183,20 @@ function actionReadById(id){
     success: function( respuesta ) {
       JSONRespuesta = JSON.parse(respuesta);
       if(JSONRespuesta.estado==1){
+        let nom_usuario = document.getElementById("nom_usuarioRead");
+        nom_usuario.value=JSONRespuesta.nom_usuario;
         let fecha_solicitada = document.getElementById("fecha_solicitadaRead");
-          fecha_solicitada.value=JSONRespuesta.fecha_solicitada;
-          let descripcion = document.getElementById("descripcionRead");
-          descripcion.value=JSONRespuesta.descripcion;
-          let hora_inicio = document.getElementById("hora_inicioRead");
-          hora_inicio.value=JSONRespuesta.hora_inicio;
-          let hora_fin = document.getElementById("hora_finRead");
-          hora_fin.value=JSONRespuesta.hora_fin;
-          let fecha_creacion = document.getElementById("fecha_creacionRead");
-          fecha_creacion.value=JSONRespuesta.fecha_creacion;
-          
+        fecha_solicitada.value=JSONRespuesta.fecha_solicitada;
+        let descripcion = document.getElementById("descripcionRead");
+        descripcion.value=JSONRespuesta.descripcion;
+        let hora_inicio = document.getElementById("hora_inicioRead");
+        hora_inicio.value=JSONRespuesta.hora_inicio;
+        let hora_fin = document.getElementById("hora_finRead");
+        hora_fin.value=JSONRespuesta.hora_fin;
+        let fecha_creacion = document.getElementById("fecha_creacionRead");
+        fecha_creacion.value=JSONRespuesta.fecha_creacion;
+        let estado = document.getElementById("estadoRead");
+        estado.value=JSONRespuesta.estado;
           //let completadaCheckbox = document.getElementById("completadaRead");
           //completadaCheckbox.checked = JSONRespuesta.estadoAct == 1;
       }else{

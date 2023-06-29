@@ -329,16 +329,11 @@ visualización de tareas
             </div>
             <div class="modal-body">
               <form>
-                <div class="row">
                   <div class="form-group">
                     <label for="fecha">Fecha en que solicita el laboratorio</label>
                     <input type="date" rows="2" class="form-control" id="fecha_solicitadaRead" disabled>
                   </div>
-                  <div class="form-group">
-                    <label for="fecha">Fecha en que se realizó esta solicitud</label>
-                    <input type="date" rows="2" class="form-control" id="fecha_creacionRead" disabled>
-                  </div>
-                </div>
+                  
                
                 <div class="row">
                   <div class="col-sm-6">
@@ -384,7 +379,21 @@ visualización de tareas
                   <textarea class="form-control" rows="2" placeholder="Agregar descripción" id="descripcionRead" disabled></textarea>
                 </div>
                 
+                <div class="form-group">
+                  <label for="fecha">Fecha en que se realizó esta solicitud</label>
+                  <input type="date" rows="2" class="form-control" id="fecha_creacionRead" disabled>
+                </div>
                 
+                <div class="form-group">
+                  <label for="estado">Estado</label>
+                  <input type="text" rows="2" class="form-control" id="estadoRead" disabled>
+                </div>
+
+                <div class="form-group">
+                  <label for="comentario">Comentario</label>
+                  <textarea class="form-control" rows="2"  id="comentarioRead" disabled></textarea>
+                </div>
+
               </form>
             </div>
             <div class="modal-footer">

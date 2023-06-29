@@ -176,7 +176,6 @@
         $queryRead =    "SELECT u.nom_usuario, s.* FROM usuario u, solicitud s WHERE u.num_empleado=s.num_empleado";
         $resultadoRead = mysqli_query($conex, $queryRead);
         $numeroRegistros = mysqli_num_rows($resultadoRead);
-        
         // Si hay registros los envía al Javascript y comprueba el estado de la tarea (Pendiente, Completada, Retrasada)
         // Si no hay registros envía un mensaje diciendo que no hay registros para mostrar
         // Si ocurre un error dentro del if, envía mensajes de error
@@ -329,8 +328,7 @@
         $id = $_POST['id'];
 
         // Lee los datos del registro según el id de la tarea
-        $queryReadById = "SELECT * FROM solicitud 
-                                WHERE idSolicitud='".$id."'";
+        $queryReadById = "SELECT u.nom_usuario, s.* FROM usuario u, solicitud s WHERE s.idSolicitud='".$id."'";
 
         $resultById = mysqli_query($conex,$queryReadById);
         $numeroRegistrosById = mysqli_num_rows($resultById);
@@ -339,16 +337,17 @@
         // Sino envía un mensaje de error
         if($numeroRegistrosById>0){
             $Respuesta['estado']  = 1;
-            $Respuesta['mensaje'] = "Registro encontrado";
              
             $renglonEntregaById = mysqli_fetch_assoc($resultById);
 
             $Respuesta['idSolicitud'] = $renglonEntregaById['idSolicitud'];
+            $Respuesta['nom_usuario'] = $renglonEntregaById['nom_usuario'];
             $Respuesta['fecha_solicitada'] = $renglonEntregaById['fecha_solicitada'];
             $Respuesta['fecha_creacion'] = $renglonEntregaById['fecha_creacion'];
             $Respuesta['hora_inicio'] = $renglonEntregaById['hora_inicio'];
             $Respuesta['hora_fin'] = $renglonEntregaById['hora_fin'];
             $Respuesta['descripcion'] = $renglonEntregaById['descripcion'];
+            $Respuesta['estado'] = $renglonEntregaById['estado'];
            // $Respuesta['estadoAct'] = $renglonEntregaById['estado'];
         }else{
             $Respuesta['estado'] = 0;
