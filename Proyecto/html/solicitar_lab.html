@@ -1,7 +1,5 @@
 <!-- 
-Nombre del programa: consulta_tareas.html
-Descripción: Este documento muestra el formato de la página para la creación, modificación y 
-visualización de tareas
+
 --> 
 
 <!DOCTYPE html>
@@ -9,7 +7,7 @@ visualización de tareas
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Solicitudes</title>
+  <title>Solicitar laboratorio</title>
   <link rel="shortcut icon" href="../css/Logo.png" type="image/x-icon">
 
   <!-- Google Font: Source Sans Pro -->
@@ -62,7 +60,7 @@ visualización de tareas
         window.location.replace("../html/login.html");
       } else {
         
-        // Mostrar el correo electrónico en el elemento HTML
+        // Mostrar el numero de empleado en el elemento HTML
   
         const correoElement = document.getElementById("num_empleado");
         
@@ -193,14 +191,14 @@ visualización de tareas
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1><strong>
-              Solicitudes
+              Solicitar laboratorio
               <small></small>
             </strong></h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-              <li class="breadcrumb-item active">Solicitudes</li>
+              <li class="breadcrumb-item"><a href="inicio.html">Inicio</a></li>
+              <li class="breadcrumb-item active">Solicitar laboratorio</li>
             </ol>
           </div>
         </div>
@@ -224,8 +222,8 @@ visualización de tareas
                         
                         <th>Fecha solicitada</th>
                         <th>Descripción</th>
-                        <th>Status</th>
-                        <th width="18%">Opciones</th>
+                        <th>Estado</th>
+                        <th>Opciones</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -241,7 +239,7 @@ visualización de tareas
         <!-- ./row -->
       </div><!-- /.container-fluid -->
 
-      <!-- CREATE TAREA ------------------------------------- APRS --------------------------------------->
+      <!-- Crear Solicitud-->
       <div class="modal fade" id="modal_create_tarea">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
@@ -317,7 +315,7 @@ visualización de tareas
       </div>
       <!-- /.modal -->
 
-      <!-- READ TAREA ------------------------------------- APRS --------------------------------------->
+      <!-- Leer datos de solicitud-->
       <div class="modal fade" id="modal_read_tarea" >
         <div class="modal-dialog modal-default">
           <div class="modal-content">
@@ -407,86 +405,9 @@ visualización de tareas
       </div>
       <!-- /.modal -->
 
-      <!-- UPDATE TAREA ------------------------------------- APRS --------------------------------------->
-      <div class="modal fade" id="modal_update_tarea">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Editar tarea</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form>
-                <div class="form-group">
-                  <label for="nombreTarea_Update">Nombre de la tarea</label>
-                  <input type="text" class="form-control" id="nombreTarea_Update" placeholder="Agregar nombre de tarea">
-                </div>
-                <div class="form-group">
-                  <label for="descripcion_Update">Descripción</label>
-                  <textarea class="form-control" rows="2" placeholder="Agregar descripción" id="descripcion_Update"></textarea>
-                </div>
-                <div class="form-group">
-                  <label for="lugar_Update">Lugar</label>
-                  <input type="text" class="form-control" id="lugar_Update" placeholder="Agregar ubicación">
-                </div>
-                <div class="row">
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label for="fecha_Update">Fecha límite</label>
-                      <input type="date" class="form-control" id="fecha_Update">
-                    </div>
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label for="duracion_Update">Duración</label>
-                      <input type="text" class="form-control" id="duracion_Update" placeholder="Agregar duración estimada">
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="actionUpdate()">Guardar cambios</button>
-            </div>
-          </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-      </div>
+      
 
-      <!--  COMPARTIR TAREA --------------------------------- BSVR --------------------------------------->
-      <div class="modal fade" id="modal_share_tarea">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Compartir tarea</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form>
-                <div class="form-group">
-                  <label style="text-align: center;">Ingrese el correo de la persona con la cual quiere compartir esta tarea</label>
-                  <input type="text" class="form-control" id="nombreUsuario" placeholder="Correo" value="">
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer" align="center">
-              <label> ¿Esta de acuerdo con compartir esta tarea con el usuario?</label>
-              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="Compartir()" id="botonCompartir">Compartir</button>
-            </div>
-          </div>
-          <!-- /.modal-content -->
-        </div>
-      </div>
-      <!-- /.modal -->
-
-      <!-- DELETE TAREA ------------------------------------- APRS --------------------------------------->
+      <!-- Eliminar solicitud-->
       <div class="modal fade" id="modal_delete_tarea">
         <div class="modal-dialog modal-default">
           <div class="modal-content">
@@ -494,7 +415,7 @@ visualización de tareas
               <form>
                 <div class="form-group">
                   <br>
-                  <p>¿Está seguro de que desea eliminar esta tarea?</p>
+                  <p>¿Está seguro de que desea eliminar esta solicitud?</p>
                 </div>
               </form>
             </div>
@@ -549,8 +470,8 @@ visualización de tareas
 <!-- Toastr -->
 <script src="../../AdminLTE-master/plugins/toastr/toastr.min.js"></script>
 <!-- JQVMap -->
-<script src="../../AdminLTE-master/plugins/jqvmap/jquery.vmap.min.js"></script>
-<script src="../../AdminLTE-master/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+
+
 <!-- jQuery Knob Chart -->
 <script src="../../AdminLTE-master/plugins/jquery-knob/jquery.knob.min.js"></script>
 <!-- daterangepicker -->

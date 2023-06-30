@@ -1,9 +1,5 @@
 /*
-Nombre del programa: CRUD_TAREAS
-Descripción:  Realiza todas las acciones necesarias para tareas en Javascript,
-              crea, edita, elimina, lee los datos de una tarea, lee todos los registros de tareas
-              las marca como completadas, las comparte, y algunas funciones extra que permiten el
-              correcto funcionamiento de las anteriores.
+
 */
 
 let idEliminar=0;
@@ -11,106 +7,9 @@ let idActualizar=0;
 let idLeer=0;
 let idMarcar=0;
 
-// ----------------  CREATE TAREAS  -----------------
-// Funciona al oprimir el botón de Nueva Tarea
-async function actionCreate(){
-  //Recuperamos los datos del formulario
-  let fecha_solicitada = document.getElementById('fecha_solicitada').value;
-  let hora_inicio = document.getElementById('hora_inicio').value;
-  let hora_fin = document.getElementById('hora_fin').value;
-  let descripcion = document.getElementById('descripcion').value;
-
-  let estadoprint="Pendiente";
-  let estado="2";
-  let fecha = new Date();
-  let anio = fecha.getFullYear();
-  let mes = String(fecha.getMonth() + 1).padStart(2, '0');
-  let dia = String(fecha.getDate()).padStart(2, '0');
-  let fecha_creacion = anio + '-' + mes + '-' + dia;
-  
-  var elemento = document.getElementById("num_empleado");
-  var valorVariable = elemento.textContent;
-  var expresionRegular = /\d+/;
-  var numeros = valorVariable.match(expresionRegular);
-  //console.log(numeros[0]);
-  let num_empleado= numeros[0];
-  // Compara las fechas y actualiza el estado
-  /*
-  if(fecha == fechaFormateada || fecha > fechaFormateada){
-      estadoAct = 0;
-  }else if (fecha < fechaFormateada) {
-      estadoAct = 2;
-  }else{
-    estadoAct = 0;
-  }
-  */
 
 
-  //const email = await obtenerCorreo();
-
-  // Validaciones not null, para asegurar que llene todos los campos
-  if(fecha_solicitada === "" || hora_inicio === "" || descripcion === "" || hora_fin === ""){
-      console.log('No puso todos los campos');
-      toastr.error("Favor de rellenar todos los campos. Intente de nuevo.");
-  }else{
-      
-      
-      var formData = new FormData();
-      formData.append('fecha_solicitada', fecha_solicitada);
-      formData.append('fecha_creacion', fecha_creacion);
-      formData.append('hora_inicio', hora_inicio);
-      formData.append('hora_fin', hora_fin);
-      formData.append('descripcion', descripcion);
-      formData.append('estado', estado);
-      formData.append('num_empleado', num_empleado);
-      formData.append('accion',"create");
-
-      console.log(fecha_solicitada);
-      console.log(fecha_creacion);
-      console.log(descripcion);
-      console.log(fecha_creacion);
-      console.log(hora_inicio);
-      console.log(hora_fin);
-      console.log(estado);
-      console.log(num_empleado);
-
-
-      limpiarpagina();
-
-      $.ajax({ 
-        method:"POST",
-        url: "../php/crud_solicitudes.php",
-        data: formData,
-
-        contentType: false,
-        processData: false,
-        success: function(respuesta) {
-          alert(respuesta);
-          JSONRespuesta = JSON.parse(respuesta); 
-          if(JSONRespuesta.estado==1){
-            //alert(JSONRespuesta.mensaje);
-            tabla = $("#example2").DataTable();
-            // if(estadoAct == 0){
-            //   estadoActT = "Pendiente";
-            // }
-            // if(estadoAct == 2){
-            //   estadoActT = "Retrasada";
-            // }
-            let Botones="";
-              Botones += '<i class="fas fa-edit" style="font-size:25px;color: #168645; margin-right: 10px;" data-toggle="modal" data-target="#modal_update_tarea" onclick="identificarActualizar('+JSONRespuesta.id+')"></i>';    
-              Botones += '<i class="fas fa-trash" style="font-size:25px;color: #da2c2c; margin-right: 10px;" data-toggle="modal" data-target="#modal_delete_tarea" onclick="identificarEliminar('+JSONRespuesta.id+')"></i>';
-             
-            tabla.row.add([fecha_solicitada,descripcion,estadoprint,  Botones]).draw().node().id="renglon_"+JSONRespuesta.id;
-            //toastr.success(JSONRespuesta.mensaje);
-          }else{
-            toastr.error(JSONRespuesta.mensaje);
-          }
-        }
-    });
-  }    
-}
-
-// -----------------  READ TAREAS  ------------------
+// -----------------  Leer solicitudes  ------------------
 // Pone en la tabla todos los registros de la BD
 async function actionRead() {
     const email = await obtenerCorreo();
@@ -132,14 +31,6 @@ async function actionRead() {
         JSONRespuesta = JSON.parse(respuesta);
         console.log(JSONRespuesta.estado);
 
-        
-        // var elemento = document.getElementById("num_empleado");
-        // var valorVariable = elemento.textContent;
-        // var expresionRegular = /\d+/;
-        // var numeros = valorVariable.match(expresionRegular);
-        //console.log(numeros[0]);
-        //let num_empleado= numeros[0];
-  
           tabla = $("#example2").DataTable();
         
               JSONRespuesta.entregas.forEach(solicitud => {
@@ -156,7 +47,7 @@ async function actionRead() {
                 }
                 
                 let Botones="";
-                  Botones += '<i class="fas fa-eye" style="font-size:25px;color: #af66eb; margin-right: 10px;" data-toggle="modal" data-target="#modal_read_tarea" onclick="actionReadById(' + solicitud.idSolicitud + ')"></i>';
+                  Botones += '<center><i class="fas fa-eye" style="font-size:25px;color: #168645; margin-right: 10px;" data-toggle="modal" data-target="#modal_read_tarea" onclick="actionReadById(' + solicitud.idSolicitud + ')"></i></center>';
                  
                   
                   
@@ -168,8 +59,8 @@ async function actionRead() {
   }
 
 
-// -----------------  READ_BY_ID TAREAS  ------------------
-// Funciona al oprimir el botón de morado de leer para cada tarea, o cuando se selecciona desde el calendario
+// -----------------  READ_BY_ID solicitudes  ------------------
+// Funciona al oprimir el botón de morado de leer para cada solicitud
 function actionReadById(id){
   idLeer=id;
     idActualizar=id;
@@ -183,7 +74,7 @@ function actionReadById(id){
     success: function( respuesta ) {
       JSONRespuesta = JSON.parse(respuesta);
       console.log(JSONRespuesta);
-      //if(JSONRespuesta.estado==1){
+
         
         let nom_usuario = document.getElementById("nom_usuarioRead");
         nom_usuario.value=JSONRespuesta.nom_usuario;
@@ -218,17 +109,12 @@ function actionReadById(id){
             
         }
 
-          //let completadaCheckbox = document.getElementById("completadaRead");
-          //completadaCheckbox.checked = JSONRespuesta.estadoAct == 1;
-      //}else{
-        //toastr.error("Registro no encontrado");
-      //
     }
   });
 }
 
-// -----------------  UPDATE TAREAS  ------------------
-// Funciona al oprimir el botón verde de editar para cada tarea
+// -----------------  actualizar solicitud  ------------------
+// Funciona al oprimir el botón verde de editar para cada solicitud
 async function actionUpdate(){
  
     let estado = document.getElementById("estadoRead").value;
@@ -251,14 +137,10 @@ async function actionUpdate(){
     console.log(fechaActual);
     console.log(fecha_modificacion);
 
-    // if(nombre === "" || cantidad === "" || Descripcion === "" || fecha_modificacion === "" ){
-    //   console.log('No puso todos los campos');
-    //   toastr.error("Favor de rellenar todos los campos. Intente de nuevo.");
-    // }else{
       var formData = new FormData();
           formData.append('id', idActualizar);
          
-         // formData.append('nom_usuario', nom_usuario);
+
           formData.append('fecha_solicitada', fecha_solicitada);
           formData.append('hora_inicio', hora_inicio);
           formData.append('hora_fin', hora_fin);
@@ -266,7 +148,6 @@ async function actionUpdate(){
           formData.append('fecha_creacion', fecha_creacion);
           formData.append('estado', estado);
           formData.append('comentario', comentario);
-         // formData.append('fecha_modificacion', fecha_modificacion);
           formData.append('accion', "update");
     
       $.ajax({
@@ -278,7 +159,6 @@ async function actionUpdate(){
         
         success: function( respuesta ) {
           JSONRespuesta = JSON.parse(respuesta);
-          //if(JSONRespuesta.estado==1){
             
             let tabla = $("#example2").DataTable();
             console.log(JSONRespuesta.estadoAct)
@@ -295,7 +175,7 @@ async function actionUpdate(){
             }
              
                
-              Botones += '<i class="fas fa-eye" style="font-size:25px;color: #af66eb; margin-right: 10px;" data-toggle="modal" data-target="#modal_read_tarea" onclick="actionReadById('+idActualizar+')"></i>';
+              Botones += '<center><i  class="fas fa-eye" style="font-size:25px;color: #168645; margin-right: 10px;" data-toggle="modal" data-target="#modal_read_tarea" onclick="actionReadById('+idActualizar+')"></i></center>';
             ////////////////////////////////////////////////
             var temp = tabla.row("#renglon_"+idActualizar).data();
             temp[0] = nom_usuario;
@@ -306,113 +186,11 @@ async function actionUpdate(){
             tabla.row("#renglon_"+idActualizar).data(temp).draw();
             /////////////////////////////////////////////////
             toastr.success(JSONRespuesta.mensaje);
-        //   }else{
-        //     toastr.error(JSONRespuesta.mensaje);
-        // }
+
         }
       });
-    //}
 }
 
-// -----------------  DELETE TAREAS  ------------------
-// Funciona al oprimir el botón rojo de eliminar para cada tarea
-function actionDelete() {
-  $.ajax({
-    method:"POST",
-    url: "../php/crud_tareas.php",
-    data: {
-      id: idEliminar,
-      accion:"delete"
-    },
-    success: function( respuesta ) {
-      JSONRespuesta = JSON.parse(respuesta);
-      if(JSONRespuesta.estado==1){
-        let tabla = $("#example2").DataTable();
-        tabla.row("#renglon_"+idEliminar).remove().draw();
-        toastr.success(JSONRespuesta.mensaje);
-      }else{
-        toastr.error(JSONRespuesta.mensaje);
-      }
-    }
-  });
-}
-
-// -----------------  MARCAR COMO COMPLETADA  ------------------
-// Hace que el estado de la tarea sea 1 = "Completada"
-async function marcarCompletada(estadoCompletada){
-  idMarcar=idLeer;
-  const email = await obtenerCorreo();
-
-  let fechaActual = new Date();
-  
-  let anio = fechaActual.getFullYear();
-  let mes = String(fechaActual.getMonth() + 1).padStart(2, '0');
-  let dia = String(fechaActual.getDate()).padStart(2, '0');
-  let fechaFormateada = anio + '-' + mes + '-' + dia;
-
-  console.log(estadoCompletada);
-  
-  $.ajax({
-    method:"POST",
-    url: "../php/crud_tareas.php",
-    data: {
-      id: idMarcar,
-      estadoCompletada: estadoCompletada,
-      fechaHoy: fechaFormateada,
-      accion:"read_idMarc",
-      correo: email
-    },
-    success: function( respuesta ) {
-      JSONRespuesta = JSON.parse(respuesta);
-        if(JSONRespuesta.estado==1){
-          let tabla = $("#example2").DataTable();
-          console.log(JSONRespuesta.estadoAct)
-          let estadoCompletada;
-          if(JSONRespuesta.estadoAct == 1){
-            estadoCompletada = "Completada";
-          }
-          if(JSONRespuesta.estadoAct == 0){
-            estadoCompletada = "Pendiente";
-          }
-          if(JSONRespuesta.estadoAct == 2){
-            estadoCompletada = "Retrasada";
-          }
-
-          let nomTarea = JSONRespuesta.nom_tarea;
-          let fecha = JSONRespuesta.fecha;
-          let duracion = JSONRespuesta.duracion;
-        
-          let Botones="";
-            Botones = '<i class="fas fa-eye" style="font-size:25px;color: #af66eb; margin-right: 10px;" data-toggle="modal" data-target="#modal_read_tarea" onclick="actionReadById('+idMarcar+')"></i>';
-            Botones += '<i class="fas fa-edit" style="font-size:25px;color: #168645; margin-right: 10px;" data-toggle="modal" data-target="#modal_update_tarea" onclick="identificarActualizar('+idMarcar+')"></i>';    
-            Botones += '<i class="fas fa-trash" style="font-size:25px;color: #da2c2c; margin-right: 10px;" data-toggle="modal" data-target="#modal_delete_tarea" onclick="identificarEliminar('+idMarcar+')"></i>';
-            Botones += '<i class="fas fa-share" style="font-size:25px;color: #1855b1; margin-right: 10px;" data-toggle="modal" data-target="#modal_share_tarea"></i>';
-          
-          var temp = tabla.row("#renglon_"+idMarcar).data();
-          temp[0] = nomTarea;
-          temp[1] = fecha;
-          temp[2] = duracion;
-          temp[3] = estadoCompletada;
-          temp[4] = Botones;
-          tabla.row("#renglon_"+idMarcar).data(temp).draw();
-          
-          toastr.info(JSONRespuesta.mensaje);
-          
-      }else{
-        toastr.error("No se pudo marcar como completada. Volver a intentarlo.");
-      }
-    }
-  });
-}
-
-//Limpia las variables del create
-function limpiarpagina()
-{
-    document.getElementById("fecha_solicitada").value = "";
-    document.getElementById("hora_inicio").value = "";
-    document.getElementById("hora_fin").value = "";
-    document.getElementById("descripcion").value = "";
-}
 
 //Leemos el correo de la sesion
 async function obtenerCorreo() {
@@ -424,85 +202,3 @@ async function obtenerCorreo() {
   return user;
 }
 
-//Función para rellenar lo que hay en BD, para despues poder actualizar
-function identificarActualizar(id){
-    idActualizar=id;
-    //
-    alert(idActualizar);
-  
-    $.ajax({
-      method:"POST",
-      url: "../php/crud_tareas.php",
-      data: {
-        id: idActualizar,
-        accion:"read_idAct"
-      },
-      success: function( respuesta ) {
-        JSONRespuesta = JSON.parse(respuesta);
-        if(JSONRespuesta.estado==1){
-          let nom_tarea = document.getElementById("nombreTarea_Update");
-          nom_tarea.value = JSONRespuesta.nom_tarea;
-          let descripcion = document.getElementById("descripcion_Update");
-          descripcion.value = JSONRespuesta.descripcion;
-          let lugar = document.getElementById("lugar_Update");
-          lugar.value = JSONRespuesta.lugar;
-          let fecha = document.getElementById("fecha_Update");
-          fecha.value = JSONRespuesta.fecha;
-          let duracion = document.getElementById("duracion_Update");
-          duracion.value = JSONRespuesta.duracion;
-          
-        }else{
-          toastr.error("Registro no encontrado");
-        }
-      }
-    });
-  }
- 
-//Asigna el id al idEliminar
-function identificarEliminar(id){
-  idEliminar=id;
-  //alert(idEliminar);
-}
-
-// Recupera el nombre del usuario al que se va a compartir la tarea
-function Compartirid(id) {
-  idtarea = id;
-  document.getElementById("nombreUsuario").value = "";  // Limpiar el campo de nombreUsuario si es necesario
-}
-
-// -----------------  SHARE TAREAS  ------------------
-// Comparte una tarea de un usuario a otro
-async function Compartir() {
-  let nombreUsuario = document.getElementById("nombreUsuario").value;
-  const email = await obtenerCorreo();
- if(nombreUsuario == "")
- {
-  toastr.error("Ingrese el nombre del ususario a compartir.");
- }
- else
- {
-  $.ajax({
-    method: "POST",
-    url: "../php/crud_tareas.php",
-    data: {
-      id: idtarea,
-      nombre: nombreUsuario,
-      correo: email,
-      accion: "share"
-    },
-    success: function(respuesta) {
-      JSONRespuesta = JSON.parse(respuesta);
-      if (JSONRespuesta.estado == 1) {
-        toastr.success("Se compartió la tarea con éxito.");
-      } else if (JSONRespuesta.estado == 2) {
-        toastr.error("Favor de elegir un nombre diferente al suyo.");
-      }
-      else if(JSONRespuesta.estado == 3){
-        toastr.error("Error al compartir. Intentelo de nuevo.");
-      } else {
-        toastr.error("Nombre no encontrado en la base de datos. Favor de verificar que el nombre sea el correcto.");
-      }
-    }
-  });
- }   
-}

@@ -1,7 +1,5 @@
 <!-- 
-Nombre del programa: calendario.html
-Descripción: Este documento muestra la vista principal de la página con el calendario que muestra los hábitos
-y las tareas pendientes
+
 --> 
 
 <!DOCTYPE html>
@@ -38,7 +36,7 @@ y las tareas pendientes
       window.location.replace("../html/login.html");
     } else {
       
-      // Mostrar el correo electrónico en el elemento HTML
+      // Mostrar el numero de empleado en el elemento HTML
 
       const correoElement = document.getElementById("num_empleado");
       
@@ -169,7 +167,7 @@ y las tareas pendientes
             <div class="col-sm-6">
               <div class="info">
               <h1><strong>
-                Bienvenido Docente 
+                Bienvenido Docente  
                 </div>
                 <small></small>
               </strong></h1>
@@ -195,76 +193,7 @@ y las tareas pendientes
   </div>
   <!-- /.content-wrapper -->
 
-  <!-- READ Habito -->
-  <div class="modal fade" id="modal_read_tarea">
-    <div class="modal-dialog modal-default">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Detalles del habito</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <label for="nombreHabito">Nombre de hábito </label>
-              <input type="text" class="form-control" id="nombreHabitoRead" placeholder="Agregar nombre de hábito" disabled>
-            </div>
-            <div class="form-group">
-              <label for="descripcion">Descripción</label>
-              <textarea class="form-control" rows="2" placeholder="Agregar descripción" id="descripcionRead"disabled></textarea>
-            </div>
-            
-              
-                <!-- poner dias que aplica-->
-             
-                <label for="Repetir">Repetir:</label>
-
-                <br>
-                
-                <div id="checkboxContainer" style="display: block;">
-                  <label for="Lunes">Lunes</label>
-                  <input type="checkbox" id="lunesRead" value=""disabled>&nbsp;&nbsp;
-                  <label for="Martes">Martes</label>
-                  <input type="checkbox" id="martesRead" value=""disabled>&nbsp;&nbsp;
-                  <label for="Miercoles">Miercoles</label>
-                  <input type="checkbox" id="miercolesRead" value=""disabled>
-                  <br>
-                  <label for="Jueves">Jueves</label> 
-                  <input type="checkbox" id="juevesRead" value=""disabled>&nbsp;&nbsp;
-                  <label for="Viernes">Viernes</label>
-                  <input type="checkbox" id="viernesRead" value=""disabled>&nbsp;&nbsp;
-                  <label for="Sábado">Sábado</label>
-                  <input type="checkbox" id="sabadoRead" value=""disabled>
-                  <br>
-                  <label for="Domingo">Domingo</label>
-                  <input type="checkbox" id="domingoRead" value=""disabled>
-                  <br>
-                  <br>
-                </div> 
-                <!-- Termina dias que aplica-->
-              
-              
-            
-  
-            <!-- Prioridad-->
-            <div id="PrioridadAlta" style="display: none;"><div class="external-event bg-danger">Prioridad Alta</div></div>
-            <div id="PrioridadMedia" style="display: none;"><div class="external-event bg-warning">Prioridad Media</div></div>
-            <div id="PrioridadBaja" style="display: none;"><div class="external-event bg-success">Prioridad Baja</div></div>
-            
-            
-          </form>
-        </div>
-        
-      </div>
-      <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
-
-
+ 
 
 
   <footer class="main-footer">
@@ -291,11 +220,6 @@ y las tareas pendientes
 <!-- fullCalendar 2.2.5 -->
 <script src="../../AdminLTE-master/plugins/moment/moment.min.js"></script>
 <script src="../../AdminLTE-master/plugins/fullcalendar/main.js"></script>
-
-<!-- Page specific script -->
-<script src="../../Proyecto/js/calendario.js"></script>
-
-<script src="../../Proyecto/js/crud_habitos.js"></script>
 
 <!-- DataTables  & Plugins -->
 <script src="../../AdminLTE-master/plugins/datatables/jquery.dataTables.min.js"></script>
