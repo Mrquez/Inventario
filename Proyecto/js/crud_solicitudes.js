@@ -52,7 +52,10 @@ async function actionCreate(){
   if(fecha_solicitada === "" || hora_inicio === "" || descripcion === "" || hora_fin === ""){
       console.log('No puso todos los campos');
       toastr.error("Favor de rellenar todos los campos. Intente de nuevo.");
-  }else{
+  }else if(fecha_solicitada< fecha_creacion){
+    toastr.error("No es posible seleccionar una fecha anterior a la actual, intente de nuevo");
+  }
+  else{
       
       
       var formData = new FormData();
