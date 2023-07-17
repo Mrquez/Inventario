@@ -12,10 +12,19 @@ function validateForm(){
         mensaje();
         return false;
       }
+      if(x1 != x){
+        mensaje2();
+        return false;
+      }
       
 }
 
 function mensaje(){
     document.getElementById('error-message').style.display = 'block';
+    document.getElementById('conmal').style.display = 'none';
+}
+function mensaje2(){
+  document.getElementById('conmal').style.display = 'block';
+  document.getElementById('error-message').style.display = 'none';
 }
     

@@ -19,7 +19,7 @@ if($rconsulta)
 {
     echo "
     <script>
-        alert('El num_empleado ya se encuentra asociado a un usuario');
+        alert('El numero de empleado ya se encuentra asociado a un usuario');
         window.location = '../html/register.html';
     </script>
     ";
@@ -30,20 +30,10 @@ else
     $resultado = mysqli_query($conex,$query);
     echo "
     <script>
-        alert('El usuario se registro correctamente');
-        window.location = '../html/index.html';
+         alert('El usuario se registro correctamente');
+         window.location = '../html/index.html';
     </script>
     ";
-
-        if($resultado)
-    {
-        echo "
-        <script>
-            document.getElementById('good').style.display = 'none';
-        </script>
-        ";
-
-    }
 }
 
 ?>

@@ -41,6 +41,7 @@ Descripción: Este documento muestra el formato del registro de un nuevo usuario
             </div>
           </div>
         </div>
+        
         <div class="input-group mb-3">
           <input type="text" minlength="6" maxlength="6" class="form-control" placeholder="No. de Empleado" name="num_empleado">
           <div class="input-group-append">
@@ -49,6 +50,7 @@ Descripción: Este documento muestra el formato del registro de un nuevo usuario
             </div>
           </div>
         </div>
+        
         <div class="input-group mb-3">
           <input type="password" minlength="6" maxlength="6" class="form-control" placeholder="Contraseña" name="contrasena"> 
           <div class="input-group-append">
@@ -65,11 +67,13 @@ Descripción: Este documento muestra el formato del registro de un nuevo usuario
             </div>
           </div>
         </div>
+        <div><small>La contraseña debe ser igual que el número de empleado</small> </div> <br>
         <div class="row">
           <div class="col-4">
             
           </div>
           <!-- /.col -->
+         
           <div class="col-8">
             <button type="submit" class="btn btn-primary btn-block">Registrarse</button>
           </div>
@@ -79,6 +83,12 @@ Descripción: Este documento muestra el formato del registro de un nuevo usuario
         <br>
           <div id="error-message1" name="error-message" style="display:none;color:red;">
             Campos incompletos. Por favor, inténtalo de nuevo.
+          </div>
+          <div id="numrep" name="error-message" style="display:none;color:red;">
+            Este número de empleado ya se encuentra registrado, favor de iniciar sesión.
+          </div>
+          <div id="condif" name="error-message" style="display:none;color:red;">
+            Por solicitud del administrador, la contraseña debe de ser igual al numero de empleado.
           </div>
           <div id="error-message2" name="error-message" style="display:none;color:red;">
             Las contraseñas son diferentes. Por favor, inténtalo de nuevo.

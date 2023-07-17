@@ -18,7 +18,11 @@ $consulta = "SELECT * FROM usuario WHERE num_empleado= '$num_empleado' and contr
 $resultado = mysqli_query($conex,$consulta);
 $datos = mysqli_fetch_array($resultado);
 $filas = mysqli_num_rows($resultado);
-
+// if($filas=='0')
+// {
+    
+//     header("location:../html/index.html");
+// }
 
 if($filas)
 {
@@ -27,9 +31,10 @@ if($filas)
 }
 else{
     echo "<script>
-        document.getElementById('error-message').style.display = 'block';
-    |   </script>";
-    header("location:../html/index.html");
+            alert('El numero de empleado no se encuentra asociado a un usuario');
+            window.location = '../html/index.html';
+       </script>";
+    
 }
 
 mysqli_free_result($resultado);

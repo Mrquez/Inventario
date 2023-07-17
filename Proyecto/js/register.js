@@ -16,13 +16,21 @@ function validateForm(){
 
         document.getElementById('error-message1').style.display = 'block';
         document.getElementById('error-message2').style.display = 'none';
+        document.getElementById('condif').style.display = 'none';
         return false;
 
+      }
+      else if (x != x1){
+        document.getElementById('condif').style.display = 'block';
+        document.getElementById('error-message2').style.display = 'none';
+        document.getElementById('error-message1').style.display = 'none';
+        return false;
       }
       else if(x1 != x3)
       {
         document.getElementById('error-message1').style.display = 'none';
         document.getElementById('error-message2').style.display = 'block';
+        document.getElementById('condif').style.display = 'none';
         return false;
       }
-    }
+    } 
