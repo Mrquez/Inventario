@@ -9,10 +9,8 @@ function validateForm(){
     var x1 = document.forms["inicio"]["contrasena"].value;
 
       if(x==""|| x1==""){
-
         mensaje();
         return false;
-
       }
       
 }

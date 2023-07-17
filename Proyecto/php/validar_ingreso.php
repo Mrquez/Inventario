@@ -29,7 +29,7 @@ else{
     echo "<script>
         document.getElementById('error-message').style.display = 'block';
     |   </script>";
-    header("location:../html/login.html");
+    header("location:../html/index.html");
 }
 
 mysqli_free_result($resultado);

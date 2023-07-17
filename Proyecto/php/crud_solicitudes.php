@@ -76,11 +76,12 @@
         $fecha_solicitada= $_POST['fecha_solicitada'];
         $estado= $_POST['estado'];
         $num_empleado= $_POST['num_empleado'];
+        $comentario= $_POST['comentario'];
         
 
         // Crea el nuevo registro de solicitud en la BD
-        $queryCreate = "INSERT INTO `solicitud`(`fecha_creacion`, `hora_inicio`, `hora_fin`, `descripcion`, `fecha_solicitada`,`estado`,`num_empleado`) 
-                        VALUES ('$fecha_creacion','$hora_inicio','$hora_fin','$descripcion','$fecha_solicitada','$estado','$num_empleado')";
+        $queryCreate = "INSERT INTO `solicitud`(`fecha_creacion`, `hora_inicio`, `hora_fin`, `descripcion`, `fecha_solicitada`,`estado`,`num_empleado`,`comentario`) 
+                        VALUES ('$fecha_creacion','$hora_inicio','$hora_fin','$descripcion','$fecha_solicitada','$estado','$num_empleado','$comentario')";
                         if(mysqli_query($conex,$queryCreate)){
                             $Respuesta['id'] = mysqli_insert_id($conex);   
                                     
@@ -210,7 +211,7 @@
     function actionDeletePHP($conex){
         $id = $_POST['id'];
 
-            $queryEliminar = "DELETE FROM solicitud WHERE idsolicitud=".$id;
+            $queryEliminar = "DELETE FROM solicitud WHERE idSolicitud=".$id;
             mysqli_query($conex,$queryEliminar);
 
             if(mysqli_affected_rows($conex)>0){

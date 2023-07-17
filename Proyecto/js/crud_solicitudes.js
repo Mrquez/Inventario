@@ -16,8 +16,9 @@ async function actionCreate(){
   let hora_fin = document.getElementById('hora_fin').value;
   let descripcion = document.getElementById('descripcion').value;
 
-  let estadoprint='<div ><div class="external-event bg-warning">Pendiente</div></div>';
+  let estadoprint='<div ><div style="cursor: default;" class="external-event bg-warning">Pendiente</div></div>';
   let estado="2";
+  let comentario="";
   let fecha = new Date();
   let anio = fecha.getFullYear();
   let mes = String(fecha.getMonth() + 1).padStart(2, '0');
@@ -47,6 +48,7 @@ async function actionCreate(){
       formData.append('hora_fin', hora_fin);
       formData.append('descripcion', descripcion);
       formData.append('estado', estado);
+      formData.append('comentario', comentario);
       formData.append('num_empleado', num_empleado);
       formData.append('accion',"create");
       console.log(fecha_solicitada);
@@ -56,6 +58,7 @@ async function actionCreate(){
       console.log(hora_inicio);
       console.log(hora_fin);
       console.log(estado);
+      console.log(comentario);
       console.log(num_empleado);
 
       limpiarpagina();
@@ -75,8 +78,8 @@ async function actionCreate(){
             tabla = $("#example2").DataTable();
 
             let Botones="";
-            Botones += '<center><i class="fas fa-eye" style="font-size:25px;color: #168645; margin-right: 10px;" data-toggle="modal" data-target="#modal_read_tarea" onclick="actionReadById(' + JSONRespuesta.id + ')"></i></center>';    
-              Botones += '<center><i class="fas fa-trash" style="font-size:25px;color: #da2c2c; margin-right: 10px;" data-toggle="modal" data-target="#modal_delete_tarea" onclick="identificarEliminar('+JSONRespuesta.id+')"></i></center>';
+            Botones += '<i class="fas fa-eye" style="cursor: pointer; font-size:25px;color: #168645; margin-right: 10px;" data-toggle="modal" data-target="#modal_read_tarea" onclick="actionReadById(' + JSONRespuesta.id + ')"></i>';    
+              Botones += '<i class="fas fa-trash" style="cursor: pointer;  font-size:25px;color: #da2c2c; margin-right: 10px;" data-toggle="modal" data-target="#modal_delete_tarea" onclick="identificarEliminar('+JSONRespuesta.id+')"></i>';
              
             tabla.row.add([fecha_solicitada,descripcion,estadoprint,  Botones]).draw().node().id="renglon_"+JSONRespuesta.id;
             toastr.success(JSONRespuesta.mensaje);
@@ -109,26 +112,28 @@ async function actionRead() {
         fechaHoy: fechaFormateada
       },
       success: function( respuesta ) {
+     
         JSONRespuesta = JSON.parse(respuesta);
+
         console.log(JSONRespuesta.estado);
   
           tabla = $("#example2").DataTable();
               JSONRespuesta.entregas.forEach(solicitud => {
                 let estadoprint="";
                 if(solicitud.estado=="1"){
-                  estadoprint='<div ><div class="external-event bg-danger">Rechazado</div></div>';
+                  estadoprint='<div ><div style="cursor: default;" class="external-event bg-danger">Rechazado</div></div>';
               }
               if(solicitud.estado=="2"){
-                  estadoprint='<div ><div class="external-event bg-warning">Pendiente</div></div>';
+                  estadoprint='<div ><div style="cursor: default;" class="external-event bg-warning">Pendiente</div></div>';
               }
               if(solicitud.estado=="3"){
-                  estadoprint='<div  ><div class="external-event bg-success">Aceptado</div></div>';
+                  estadoprint='<div  ><div style="cursor: default;" class="external-event bg-success">Aceptado</div></div>';
               }
               
                 
                 let Botones="";
-                  Botones += '<i class="fas fa-eye" style="font-size:25px;color: #168645; margin-right: 10px;" data-toggle="modal" data-target="#modal_read_tarea" onclick="actionReadById(' + solicitud.idSolicitud + ')"></i>';    
-                  Botones += '<i class="fas fa-trash" style="font-size:25px;color: #da2c2c; margin-right: 10px;" data-toggle="modal" data-target="#modal_delete_tarea" onclick="identificarEliminar('+solicitud.idSolicitud+')"></i>';
+                  Botones += '<i class="fas fa-eye" style="cursor: pointer; font-size:25px;color: #168645; margin-right: 10px;" data-toggle="modal" data-target="#modal_read_tarea" onclick="actionReadById(' + solicitud.idSolicitud + ')"></i>';    
+                  Botones += '<i class="fas fa-trash" style="cursor: pointer; font-size:25px;color: #da2c2c; margin-right: 10px;" data-toggle="modal" data-target="#modal_delete_tarea" onclick="identificarEliminar('+solicitud.idSolicitud+')"></i>';
                   
                 tabla.row.add([solicitud.fecha_solicitada, solicitud.descripcion, estadoprint, Botones]).draw().node().id="renglon_"+solicitud.idSolicitud;
               });

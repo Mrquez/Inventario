@@ -31,7 +31,7 @@ else
     echo "
     <script>
         alert('El usuario se registro correctamente');
-        window.location = '../html/login.html';
+        window.location = '../html/index.html';
     </script>
     ";
 

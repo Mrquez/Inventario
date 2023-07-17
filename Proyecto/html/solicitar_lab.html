@@ -57,7 +57,7 @@
         }
   
       if (user == null || user === "") {
-        window.location.replace("../html/login.html");
+        window.location.replace("../html/index.html");
       } else {
         
         // Mostrar el numero de empleado en el elemento HTML
@@ -382,9 +382,9 @@
                   <input type="date" rows="2" class="form-control" id="fecha_creacionRead" disabled>
                 </div>
                 <label for="estado">Estado</label>
-                <div id="rechazado" style="display: none;"><div class="external-event bg-danger">Rechazado</div></div>
-                <div id="pendiente" style="display: none;"><div class="external-event bg-warning">Pendiente</div></div>
-                <div id="aceptado" style="display: none;"><div class="external-event bg-success">Aceptado</div></div>
+                <div id="rechazado" style="display: none;"><div style="cursor: default;" class="external-event bg-danger">Rechazado</div></div>
+                <div id="pendiente" style="display: none;"><div style="cursor: default;" class="external-event bg-warning">Pendiente</div></div>
+                <div id="aceptado" style="display: none;"><div style="cursor: default;" class="external-event bg-success">Aceptado</div></div>
                 
                   
                 <div class="form-group">

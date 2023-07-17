@@ -37,17 +37,17 @@ async function actionRead() {
                 let estadoprint;
                 
                 if(solicitud.estado=="1"){
-                    estadoprint='<div ><div class="external-event bg-danger">Rechazado</div></div>';
+                    estadoprint='<div ><div style="cursor: default;" class="external-event bg-danger">Rechazado</div></div>';
                 }
                 if(solicitud.estado=="2"){
-                    estadoprint='<div ><div class="external-event bg-warning">Pendiente</div></div>';
+                    estadoprint='<div ><div style="cursor: default;" class="external-event bg-warning">Pendiente</div></div>';
                 }
                 if(solicitud.estado=="3"){
-                    estadoprint='<div  ><div class="external-event bg-success">Aceptado</div></div>';
+                    estadoprint='<div  ><div style="cursor: default;" class="external-event bg-success">Aceptado</div></div>';
                 }
                 
                 let Botones="";
-                  Botones += '<center><i class="fas fa-eye" style="font-size:25px;color: #168645; margin-right: 10px;" data-toggle="modal" data-target="#modal_read_tarea" onclick="actionReadById(' + solicitud.idSolicitud + ')"></i></center>';
+                  Botones += '<center><i class="fas fa-eye" style="cursor: pointer; font-size:25px;color: #168645; margin-right: 10px;" data-toggle="modal" data-target="#modal_read_tarea" onclick="actionReadById(' + solicitud.idSolicitud + ')"></i></center>';
                  
                   
                   
@@ -165,17 +165,17 @@ async function actionUpdate(){
             
             let Botones="";
             if(estado=="1"){
-                estadoprint='<div ><div class="external-event bg-danger">Rechazado</div></div>';
+                estadoprint='<div><div style="cursor: default;" class="external-event bg-danger">Rechazado</div></div>';
             }
             if(estado=="2"){
-                estadoprint='<div ><div class="external-event bg-warning">Pendiente</div></div>';
+                estadoprint='<div><div style="cursor: default;" class="external-event bg-warning">Pendiente</div></div>';
             }
             if(estado=="3"){
-                estadoprint='<div  ><div class="external-event bg-success">Aceptado</div></div>';
+                estadoprint='<div><div style="cursor: default;" class="external-event bg-success">Aceptado</div></div>';
             }
              
                
-              Botones += '<center><i  class="fas fa-eye" style="font-size:25px;color: #168645; margin-right: 10px;" data-toggle="modal" data-target="#modal_read_tarea" onclick="actionReadById('+idActualizar+')"></i></center>';
+              Botones += '<center><i  class="fas fa-eye" style="cursor: pointer; font-size:25px;color: #168645; margin-right: 10px;" data-toggle="modal" data-target="#modal_read_tarea" onclick="actionReadById('+idActualizar+')"></i></center>';
             ////////////////////////////////////////////////
             var temp = tabla.row("#renglon_"+idActualizar).data();
             temp[0] = nom_usuario;
