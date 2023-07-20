@@ -9,7 +9,6 @@ include('connect.php');
 
 $nom_usuario=$_POST['nom_usuario'];
 $num_empleado=$_POST['num_empleado'];
-$contrasena=$_POST['contrasena'];
 
 $consulta = "SELECT * FROM usuario WHERE num_empleado = '$num_empleado'";
 $resultado = mysqli_query($conex,$consulta);
@@ -26,7 +25,7 @@ if($rconsulta)
 }
 else
 {
-    $query = "INSERT INTO usuario(nom_usuario,num_empleado,contrasena) VALUES ('$nom_usuario','$num_empleado','$contrasena')";
+    $query = "INSERT INTO usuario(nom_usuario,num_empleado) VALUES ('$nom_usuario','$num_empleado')";
     $resultado = mysqli_query($conex,$query);
     echo "
     <script>

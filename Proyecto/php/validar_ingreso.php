@@ -10,11 +10,10 @@ include('connect.php');
 session_start();
 
 $num_empleado = $_POST['num_empleado'];
-$contrasena = $_POST['contrasena'];
 
 $_SESSION['num_empleado'] = $num_empleado;
 
-$consulta = "SELECT * FROM usuario WHERE num_empleado= '$num_empleado' and contrasena ='$contrasena'";
+$consulta = "SELECT * FROM usuario WHERE num_empleado= '$num_empleado'";
 $resultado = mysqli_query($conex,$consulta);
 $datos = mysqli_fetch_array($resultado);
 $filas = mysqli_num_rows($resultado);
