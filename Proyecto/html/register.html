@@ -33,6 +33,7 @@ Descripción: Este documento muestra el formato del registro de un nuevo usuario
           <img src="../css/Logo_cecyy.png" alt="H & GT Logo" width="50%" height="50%"  style="opacity: .8">
         </div>
         <br>
+        
         <div class="input-group mb-3">
           <input type="text" class="form-control" placeholder="Nombre" name="nom_usuario">
           <div class="input-group-append">
@@ -44,6 +45,15 @@ Descripción: Este documento muestra el formato del registro de un nuevo usuario
         
         <div class="input-group mb-3">
           <input type="text" minlength="6" maxlength="6" class="form-control" placeholder="No. de Empleado" name="num_empleado">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user"></span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="input-group mb-3">
+          <input type="text" minlength="6" maxlength="6" class="form-control" placeholder="No. de Empleado nuevamente" name="num_empleado2">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
@@ -70,7 +80,7 @@ Descripción: Este documento muestra el formato del registro de un nuevo usuario
             Este número de empleado ya se encuentra registrado, favor de iniciar sesión.
           </div>
           <div id="condif" name="error-message" style="display:none;color:red;">
-            Por solicitud del administrador, la contraseña debe de ser igual al numero de empleado.
+           Los numeros de empleado no coniciden, favor de verificar.
           </div>
           <div id="error-message2" name="error-message" style="display:none;color:red;">
             Las contraseñas son diferentes. Por favor, inténtalo de nuevo.
