@@ -30,7 +30,7 @@ if($filas)
 }
 else{
     echo "<script>
-            alert('El numero de empleado no se encuentra asociado a un usuario');
+            alert('El número de empleado no se encuentra asociado a un usuario');
             window.location = '../html/index.html';
        </script>";
     

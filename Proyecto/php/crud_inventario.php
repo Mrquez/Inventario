@@ -66,7 +66,7 @@
                             $Respuesta['id'] = mysqli_insert_id($conex);   
                 
                                     $Respuesta['estado'] = 1;
-                                    $Respuesta['mensaje'] = "El artículo se guardo correctamente";
+                                    $Respuesta['mensaje'] = "El artículo se guardó correctamente";
                 
                                     echo json_encode($Respuesta);
                                     mysqli_close($conex);   
@@ -74,7 +74,7 @@
                 
                             }else{
                                 $Respuesta['estado'] = 0;
-                                $Respuesta['mensaje'] = "Ocurrio un error desconocido 2";
+                                $Respuesta['mensaje'] = "Ocurrió un error desconocido";
                                 $Respuesta['id'] = -1;
                 
                                 echo json_encode($Respuesta);

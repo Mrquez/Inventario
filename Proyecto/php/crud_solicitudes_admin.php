@@ -128,13 +128,13 @@
 
         if(mysqli_query($conex,$queryUpdate)){
             if(mysqli_affected_rows($conex)>0){  
-                $Respuesta['mensaje'] = "Se respondio la solicitud correctamente";
+                $Respuesta['mensaje'] = "Se respondió la solicitud correctamente";
             }else{
                 $Respuesta['mensaje'] = "No se realizaron cambios";
             }
         }else{
             $Respuesta['estado'] = 0;
-            $Respuesta['mensaje'] = "Ocurrio un error desconocido";
+            $Respuesta['mensaje'] = "Ocurrió un error desconocido";
         } 
         echo json_encode($Respuesta);
         mysqli_close($conex);

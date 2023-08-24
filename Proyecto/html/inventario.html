@@ -96,10 +96,10 @@
       var table = document.getElementById("example2").outerHTML;
       
       // Abre una nueva ventana para imprimir el inventario.
-      var printWindow = window.open('', '', 'width=800,height=600');
+      var printWindow = window.open('', '', 'width=800,height=800');
       printWindow.document.open();
       printWindow.document.write('<center><img src="../css/Logo_cecyy.png" width="20%" height="15%"><center>');
-      printWindow.document.write('<h3>Centro de Estudios Cientificos y Tecnológicos No. 18 Zacatecas</h3>');
+      printWindow.document.write('<h3>Centro de Estudios Científicos y Tecnológicos No. 18 Zacatecas</h3>');
       printWindow.document.write('<html><head><title>Inventario actual</title></head><body>');
       printWindow.document.write('<h2>Inventario actual - Laboratorio de computo II</h2>');
       printWindow.document.write(table);
@@ -250,7 +250,7 @@
           <div class="col-md-12">
             <div class="card card-primary card-outline">
               <div class="card-body">
-                <button type="button" class="btn btn-primary  float-right" data-toggle="modal" data-target="#modal_create_tarea">Agregar articulo</button>
+                <button type="button" class="btn btn-primary  float-right" data-toggle="modal" data-target="#modal_create_tarea">Agregar artículo</button>
                 <!--Table view tasks-->
                 <br><br>
                 <div class="card-body p-0">
@@ -260,8 +260,8 @@
                         <th>Artículo</th>
                         <th>Descripción</th>
                         <th>Unidades</th>
-                        <th>Fecha de creación</th>
-                        <th>Fecha de modificación</th>
+                        <th>Fecha de creación <br> Año-Mes-Día</th>
+                        <th>Fecha de última  modificación <br> Año-Mes-Día</th>
                         <th width="18%">Opciones</th>
                       </tr>
                     </thead>
@@ -354,7 +354,7 @@
                 </div>
                 <div class="col-5">
                   <label for="descripcion">Descripción</label>
-                  <input type="text" class="form-control" id="Descripcion_Update" placeholder="Descripcion del articulo" >
+                  <input type="text" class="form-control" id="Descripcion_Update" placeholder="Descripcion del artículo" >
                 
                 </div>
                 <div class="col-5">
@@ -387,7 +387,7 @@
               <form>
                 <div class="form-group">
                   <br>
-                  <p>¿Está seguro de que desea eliminar este articulo?</p>
+                  <p>¿Está seguro de que desea eliminar este artículo?</p>
                 </div>
               </form>
             </div>
@@ -409,7 +409,7 @@
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="text-center">
-      <p>Centro de Estudios Cientificos y Tecnológicos No. 18 Zacatecas</p>
+      <p>Centro de Estudios Científicos y Tecnológicos No. 18 Zacatecas</p>
     </div>
   </footer>
 </div>
